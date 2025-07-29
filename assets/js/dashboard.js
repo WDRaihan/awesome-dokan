@@ -5,49 +5,27 @@
     'use strict';
 
     $(document).ready(function() {
-
-        console.log('Awesome Dokan script loaded!');
-
-        // Check if the Chart.js library and the canvas element are available
-        if (typeof Chart !== 'undefined' && $('#salesChart').length > 0) {
-            const ctx = document.getElementById('salesChart').getContext('2d');
-
-            // Example Data - you should fetch this via a WordPress AJAX call
-            const salesData = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'Sales',
-                    data: [65, 59, 80, 81, 56, 55, 40], // Replace with dynamic data
-                    fill: true,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    tension: 0.4,
-                    borderWidth: 2,
-                    pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-                    pointRadius: 4,
-                }]
-            };
-
-            const salesChart = new Chart(ctx, {
-                type: 'line',
-                data: salesData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false // Hide the legend for a cleaner look
-                        }
-                    }
-                }
-            });
-        }
-
+		//Toggle dashboard menu on mobile
+		jQuery('.awesome-navigation-toggle .awesome-navigation-toggle-button').on('click', function(e){
+			e.preventDefault();
+			jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar').slideToggle();
+		});
+		
+		//Toggle settings menu on mobile
+		jQuery('.awesome-dokan-wrapper .dokan-dashboard-menu li.settings.has-submenu i.menu-dropdown').on('click', function(e){
+			e.preventDefault();
+			
+			//jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu').show();
+			
+			//jQuery(this).addClass('awesome-ratate');
+		});
+		
+		jQuery(document).on('click', '.awesome-dokan-wrapper .dokan-dashboard-menu li.settings.has-submenu i.menu-dropdown.awesome-ratate', function(e){
+			e.preventDefault();
+			
+			//jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu').hide();
+			//jQuery(this).removeClass('awesome-ratate');
+		});
     });
 
 })(jQuery);
