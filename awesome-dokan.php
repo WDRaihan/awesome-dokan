@@ -85,12 +85,6 @@ final class Awesome_Dokan {
      * @return void
      */
     public function init_plugin() {
-        // Check if Dokan is active
-        if ( ! class_exists( 'WeDevs_Dokan' ) ) {
-            add_action( 'admin_notices', [ $this, 'dokan_not_found_notice' ] );
-            return;
-        }
-        
         // Get our setting
         $options = get_option( 'awesome_dokan_options' );
         $is_enabled = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : 'on';
@@ -111,7 +105,6 @@ final class Awesome_Dokan {
         if ( function_exists( 'dokan_is_seller_dashboard' ) && dokan_is_seller_dashboard() ) {
             wp_enqueue_style( 'awesome-dokan-style', AWESOME_DOKAN_ASSETS . '/css/dashboard.css', [], AWESOME_DOKAN_VERSION );
             wp_enqueue_script( 'awesome-dokan-script', AWESOME_DOKAN_ASSETS . '/js/dashboard.js', [ 'jquery' ], AWESOME_DOKAN_VERSION, true );
-            wp_enqueue_script( 'chart-js', 'https://cdn.jsdelivr.net/npm/chart.js', [], null, true );
         }
     }
 
@@ -138,17 +131,6 @@ final class Awesome_Dokan {
         $settings_link = '<a href="' . admin_url( 'options-general.php?page=awesome-dokan' ) . '">' . __( 'Settings', 'awesome-dokan' ) . '</a>';
         array_unshift( $links, $settings_link );
         return $links;
-    }
-
-    /**
-     * Admin notice if Dokan is not installed or activated.
-     */
-    public function dokan_not_found_notice() {
-        ?>
-        <div class="error">
-            <p><?php _e( '<strong>Awesome Dokan</strong> requires the <strong>Dokan</strong> plugin to be installed and activated. Please install Dokan to continue.', 'awesome-dokan' ); ?></p>
-        </div>
-        <?php
     }
 }
 

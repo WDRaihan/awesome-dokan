@@ -26,6 +26,10 @@
 			//jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu').hide();
 			//jQuery(this).removeClass('awesome-ratate');
 		});
+		
+		jQuery('.awesome-user-avatar').on('click', function(){
+			jQuery('.avatar-dropdown').toggle();
+		});
     });
 
 })(jQuery);

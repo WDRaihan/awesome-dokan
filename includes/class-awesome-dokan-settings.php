@@ -112,6 +112,14 @@ class Awesome_Dokan_Settings {
             'awesome_dokan_general_section'
         );
 
+        add_settings_field(
+            'logo_url',
+            __( 'Custom Logo URL', 'awesome-dokan' ),
+            [ $this, 'render_logo_url_field' ],
+            'awesome_dokan_settings_group',
+            'awesome_dokan_general_section'
+        );
+
         $icons = [ 'visit_store', 'add_product', 'withdraw', 'notifications', 'avatar' ];
         foreach ( $icons as $icon ) {
             add_settings_field(
@@ -142,8 +150,8 @@ class Awesome_Dokan_Settings {
     public function render_greeting_field() {
         $options = get_option( 'awesome_dokan_options' );
         $value = isset( $options['dashboard_greeting'] ) ? $options['dashboard_greeting'] : '';
-        echo '<input type="text" name="awesome_dokan_options[dashboard_greeting]" value="' . esc_attr( $value ) . '" class="regular-text" placeholder="e.g., Welcome back!">';
-		echo '<p class="description">'.esc_html__( 'Leave blank to show time-based greeting.', 'awesome-dokan' ).'</p>';
+        echo '<input type="text" name="awesome_dokan_options[dashboard_greeting]" value="' . esc_attr( $value ) . '" class="regular-text" placeholder="e.g., Hi, {user}">';
+		echo '<p class="description">'.esc_html__( 'To display the username, use this shortcode: {user}. Leave blank to show time-based greeting.', 'awesome-dokan' ).'</p>';
     }
 
     public function render_logo_field() {
@@ -154,6 +162,7 @@ class Awesome_Dokan_Settings {
             <option value="site_icon" <?php selected( $value, 'site_icon' ); ?>><?php esc_html_e( 'Site Icon', 'awesome-dokan' ); ?></option>
             <option value="main_logo" <?php selected( $value, 'main_logo' ); ?>><?php esc_html_e( 'Main Logo', 'awesome-dokan' ); ?></option>
             <option value="custom_logo" <?php selected( $value, 'custom_logo' ); ?>><?php esc_html_e( 'Custom Logo', 'awesome-dokan' ); ?></option>
+            <option value="dashboard_icon" <?php selected( $value, 'dashboard_icon' ); ?>><?php esc_html_e( 'Dashboard Icon', 'awesome-dokan' ); ?></option>
             <option value="none" <?php selected( $value, 'none' ); ?>><?php esc_html_e( 'None', 'awesome-dokan' ); ?></option>
         </select>
         <?php
@@ -170,6 +179,15 @@ class Awesome_Dokan_Settings {
                 <img src="<?php echo $logo_url; ?>" style="max-height: 50px;" />
             <?php endif; ?>
         </div>
+        <?php
+    }
+
+    public function render_logo_url_field() {
+        $options = get_option( 'awesome_dokan_options' );
+        $logo_url = isset( $options['logo_url'] ) ? esc_url( $options['logo_url'] ) : '';
+        ?>
+        <input type="text" name="awesome_dokan_options[logo_url]" id="logo_url" value="<?php echo esc_url($logo_url); ?>" class="regular-text" placeholder="Enter logo URL">
+        <p class="description">Default home URL</p>
         <?php
     }
 
