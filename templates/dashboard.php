@@ -2,7 +2,7 @@
 //Remove default toggle button
 add_filter( 'dokan_load_hamburger_menu', '__return_false' );
 //Remove default common links
-//add_filter( 'dokan_dashboard_nav_common_link', '__return_false' );
+add_filter( 'dokan_dashboard_nav_common_link', '__return_false' );
 
 /**
  * Removes the Dokan Color Scheme Customizer styles from the wp_head action.
@@ -25,7 +25,7 @@ add_action('dokan_dashboard_wrap_start', 'awesome_dokan_dashboard_wrap_start');
 function awesome_dokan_dashboard_wrap_start(){
 	$options = get_option( 'awesome_dokan_options' );
 	?>
-<div class="awesome-dokan-wrapper">
+<div class="awesome-dokan-wrapper awesome-dokan-fullscreen-mode-" id="awesome_dokan_wrapper">
 
 	<div class="awesome-dokan-header">
 		<div class="header-left">
@@ -88,45 +88,59 @@ function awesome_dokan_dashboard_wrap_start(){
 		</div>
 
 		<div class="header-right">
+			<a href="#" class="awesome-navigation-toggle-button icon-btn tips" data-original-title="Toggle Sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
 			<?php
-			$one_step_product_create = 'on' === dokan_get_option( 'one_step_product_create', 'dokan_selling', 'on' );
-			$disable_product_popup   = $one_step_product_create || 'on' === dokan_get_option( 'disable_product_popup', 'dokan_selling', 'off' );
-			$new_product_url = $one_step_product_create ? dokan_edit_product_url( 0, true ) : add_query_arg(
-				[
-					'_dokan_add_product_nonce' => wp_create_nonce( 'dokan_add_product_nonce' ),
-				],
-				dokan_get_navigation_url( 'new-product' )
-			);
-			?>
-			<?php if ( dokan_is_seller_enabled( dokan_get_current_user_id() ) ) : ?>
-				<?php if ( current_user_can( 'dokan_add_product' ) ) : ?>
-					<a href="<?php echo esc_url( $new_product_url ); ?>" class="icon-btn <?php echo $disable_product_popup ? '' : 'dokan-add-new-product'; ?>" data-original-title="Add New Product">
-						<i class="fas fa-plus"></i>
-					</a>
-				<?php endif; ?>
-
-				<?php
-					do_action( 'dokan_after_add_product_btn' );
+			$add_product = isset( $options["enable_icon_add_product"] ) ? $options["enable_icon_add_product"] : '';
+	
+			if( $add_product == 'on' && dokan_is_seller_enabled( dokan_get_current_user_id() ) ) {
+			
+				$one_step_product_create = 'on' === dokan_get_option( 'one_step_product_create', 'dokan_selling', 'on' );
+				$disable_product_popup   = $one_step_product_create || 'on' === dokan_get_option( 'disable_product_popup', 'dokan_selling', 'off' );
+				$new_product_url = $one_step_product_create ? dokan_edit_product_url( 0, true ) : add_query_arg(
+					[
+						'_dokan_add_product_nonce' => wp_create_nonce( 'dokan_add_product_nonce' ),
+					],
+					dokan_get_navigation_url( 'new-product' )
+				);
+			
+				if ( current_user_can( 'dokan_add_product' ) ) {
 				?>
-			<?php endif; ?>
-			<a target="_blank" href="<?php echo dokan_get_store_url( dokan_get_current_user_id() ); ?>" class="icon-btn" data-original-data-original-title="Visit Store">
-				<i class="fas fa-store"></i>
-			</a>
-			<a href="<?php echo esc_url( dokan_get_navigation_url( 'withdraw' ) ); ?>" class="icon-btn awesome-hide-mobile" data-original-title="Withdraw">
-				<i class="fas fa-upload"></i>
-			</a>
-
-			<?php
-			$new_orders = dokan_count_orders( dokan_get_current_user_id(), 'pending' );
+				<a href="<?php echo esc_url( $new_product_url ); ?>" class="icon-btn tips <?php echo $disable_product_popup ? '' : 'dokan-add-new-product'; ?>" data-original-title="Add New Product">
+					<i class="fas fa-plus"></i>
+				</a>
+				<?php
+				}
+			}
 			?>
-			<a href="<?php echo esc_url( dokan_get_navigation_url( 'orders' ) ); ?>" class="icon-btn" data-original-title="New Orders">
-				<i class="fas fa-shopping-cart"></i>
-				<?php if ( $new_orders ) : ?>
-				<span class="badge"><?php echo isset( $new_orders->count ) ? intval( $new_orders->count ) : 0; ?></span>
+			<?php 
+			$visit_store = isset( $options["enable_icon_visit_store"] ) ? $options["enable_icon_visit_store"] : '';
+			if( $visit_store == 'on' ){
+				?>
+				<a target="_blank" href="<?php echo dokan_get_store_url( dokan_get_current_user_id() ); ?>" class="icon-btn tips" data-original-title="Visit Store">
+					<i class="fas fa-store"></i>
+				</a>
+			<?php } ?>
+			<?php 
+			$withdraw = isset( $options["enable_icon_withdraw"] ) ? $options["enable_icon_withdraw"] : '';
+			if( $withdraw == 'on' ){
+				?>
+				<a href="<?php echo esc_url( dokan_get_navigation_url( 'withdraw' ) ); ?>" class="icon-btn tips awesome-hide-mobile" data-original-title="Withdraw">
+					<i class="fas fa-upload"></i>
+				</a>
+				<?php } ?>
+			<?php
+			$notifications = isset( $options["enable_icon_notifications"] ) ? $options["enable_icon_notifications"] : '';
+				if( $notifications == 'on' ){
+				$new_orders = dokan_count_orders( dokan_get_current_user_id(), 'pending' );
+				?>
+				<a href="<?php echo esc_url( dokan_get_navigation_url( 'orders' ) ); ?>" class="icon-btn tips" data-original-title="New Orders">
+					<i class="fas fa-shopping-cart"></i>
+					<?php if ( $new_orders ) : ?>
+					<span class="badge"><?php echo isset( $new_orders->count ) ? intval( $new_orders->count ) : 0; ?></span>
 
-				<?php endif; ?>
-			</a>
-
+					<?php endif; ?>
+				</a>
+			<?php } ?>
 			<div class="avatar-wrap">
 				<span class="awesome-user-avatar">
 					<?php echo get_avatar( get_current_user_id(), 32 ); ?>

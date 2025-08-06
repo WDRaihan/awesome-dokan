@@ -87,10 +87,10 @@ final class Awesome_Dokan {
     public function init_plugin() {
         // Get our setting
         $options = get_option( 'awesome_dokan_options' );
-        $is_enabled = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : 'on';
+        $is_enabled = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : '';
 
         // Only load the new design if the setting is checked
-        if ( 'on' === $is_enabled ) {
+        if ( 'on' == $is_enabled ) {
             add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
             $this->override_dokan_template();
         }

@@ -6,9 +6,15 @@
 
     $(document).ready(function() {
 		//Toggle dashboard menu on mobile
-		jQuery('.awesome-navigation-toggle .awesome-navigation-toggle-button').on('click', function(e){
+		jQuery('.header-left .awesome-navigation-toggle .awesome-navigation-toggle-button').on('click', function(e){
 			e.preventDefault();
 			jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar').slideToggle();
+		});
+		//Toggle dashboard menu on desktop
+		jQuery('.header-right .awesome-navigation-toggle-button').on('click', function(e){
+			e.preventDefault();
+			jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar').toggle();
+			jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dashboard-content').toggleClass('padding-left-15');
 		});
 		
 		//Toggle settings menu on mobile

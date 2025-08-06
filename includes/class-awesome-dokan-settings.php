@@ -120,14 +120,14 @@ class Awesome_Dokan_Settings {
             'awesome_dokan_general_section'
         );
 
-        $icons = [ 'visit_store', 'add_product', 'withdraw', 'notifications', 'avatar' ];
+        $icons = [ 'add_product', 'visit_store', 'withdraw', 'notifications' ];
         foreach ( $icons as $icon ) {
             add_settings_field(
                 "enable_icon_{$icon}",
                 sprintf( __( 'Show "%s" Icon', 'awesome-dokan' ), ucwords( str_replace('_', ' ', $icon) ) ),
                 function() use ( $icon ) {
                     $options = get_option( 'awesome_dokan_options' );
-                    $checked = isset( $options["enable_icon_{$icon}"] ) ? $options["enable_icon_{$icon}"] : 'on';
+                    $checked = isset( $options["enable_icon_{$icon}"] ) ? $options["enable_icon_{$icon}"] : '';
                     echo '<label><input type="checkbox" name="awesome_dokan_options[enable_icon_' . esc_attr($icon) . ']" ' . checked( $checked, 'on', false ) . '> ' . __( 'Enable this icon in the header', 'awesome-dokan' ) . '</label>';
                 },
                 'awesome_dokan_settings_group',
@@ -138,11 +138,11 @@ class Awesome_Dokan_Settings {
 
     public function render_enable_design_field() {
         $options = get_option( 'awesome_dokan_options' );
-        $checked = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : 'on';
+        $checked = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : '';
         ?>
         <label for="enable_new_design">
             <input type="checkbox" name="awesome_dokan_options[enable_new_design]" id="enable_new_design" <?php checked( $checked, 'on' ); ?>>
-            <?php echo '<p class="description">'.esc_html__( 'Check this box to replace the default Dokan dashboard with the new design.', 'awesome-dokan' ).'</p>'; ?>
+            <?php echo '<span class="description">'.esc_html__( 'Check this box to replace the default Dokan dashboard with the new design.', 'awesome-dokan' ).'</span>'; ?>
         </label>
         <?php
     }

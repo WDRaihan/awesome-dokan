@@ -3,6 +3,17 @@
 	/*	--awesome-default-background-color: #f8fafc;*/
 }
 
+#awesome_dokan_wrapper.awesome-dokan-fullscreen-mode {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 9999;
+	background: white;
+	overflow: auto
+}
+
 .awesome-dokan-header {
 	display: flex;
 	padding: 20px 18px;
@@ -26,26 +37,40 @@
 	max-height: 76px;
 }
 
+.awesome-dokan-fullscreen-mode .awesome-dokan-header {
+	position: fixed;
+}
+
+.dokan-dashboard #awesome_dokan_wrapper.awesome-dokan-fullscreen-mode .dokan-dashboard-wrap {
+	height: 100%
+}
+.dokan-dashboard #awesome_dokan_wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active:after {
+    left: auto;
+    right: 0;
+}
 .header-left {
 	display: flex;
 	align-items: center;
 	gap: 12px;
 }
+
 a.awesome-dashboard-logo {
-    text-decoration: none !important;
-    line-height: 0;
-    width: 36px;
-    height: 36px;
+	text-decoration: none !important;
+	line-height: 0;
+	width: 36px;
+	height: 36px;
 }
+
 .awesome-dashboard-logo i {
-    color: #fff;
-    text-decoration: none;
-    font-size: 34px;
-    line-height: 37px;
+	color: #fff;
+	text-decoration: none;
+	font-size: 34px;
+	line-height: 37px;
 }
+
 .awesome-dashboard-logo img {
-    border-radius: 4px;
-    max-width: 36px;
+	border-radius: 4px;
+	max-width: 36px;
 }
 
 .awesome-dokan-header .header-left h3.awesome-dokan-header-title {
@@ -60,7 +85,7 @@ a.awesome-dashboard-logo {
 .header-right {
 	display: flex;
 	align-items: center;
-	gap: 25px;
+	gap: 33px;
 }
 
 .icon-btn {
@@ -194,7 +219,11 @@ a.awesome-dashboard-logo {
 	padding-top: 2px;
 }
 
-.awesome-navigation-toggle {
+.padding-left-15 {
+	padding-left: 15px !important
+}
+
+.header-left .awesome-navigation-toggle {
 	display: none;
 	color: #fff
 }
@@ -216,6 +245,7 @@ a.awesome-navigation-toggle-button {
 	outline: 0;
 	text-decoration: none
 }
+
 a.awesome-navigation-toggle-button i {
 	color: #fff;
 	font-size: 16px;
@@ -225,7 +255,15 @@ a.awesome-navigation-toggle-button:hover i {
 	opacity: 0.8;
 }
 
+.awesome-dokan-wrapper .woocommerce-layout__header {
+	background: transparent;
+}
+
 @media (max-width: 767px) {
+	.header-right {
+		gap: 25px;
+	}
+
 	.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar {
 		display: none
 	}
@@ -239,8 +277,12 @@ a.awesome-navigation-toggle-button:hover i {
 		display: none
 	}
 
-	.awesome-navigation-toggle {
+	.header-left .awesome-navigation-toggle {
 		display: block
+	}
+
+	.header-right .awesome-navigation-toggle-button {
+		display: none
 	}
 
 	.awesome-hide-mobile {
