@@ -47,9 +47,10 @@ class Awesome_Dokan_Settings {
      * Enqueue WordPress media uploader.
      */
     public function enqueue_media_uploader() {
-        if ( 'awesome-dokan' != $_GET['page'] ) {
-            return;
-        }
+        $page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '';
+		if ( $page !== 'awesome-dokan' ) {
+			return;
+		}
         wp_enqueue_media();
         wp_enqueue_script( 'awesome-dokan-admin-js', AWESOME_DOKAN_ASSETS . '/js/admin.js', [ 'jquery' ], '1.0.0', true );
     }
