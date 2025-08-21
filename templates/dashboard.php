@@ -1,4 +1,9 @@
 <?php
+// Don't call this file directly
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 //Remove default toggle button
 add_filter( 'dokan_load_hamburger_menu', '__return_false' );
 //Remove default common links
