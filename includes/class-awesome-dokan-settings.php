@@ -51,7 +51,7 @@ class Awesome_Dokan_Settings {
             return;
         }
         wp_enqueue_media();
-        wp_enqueue_script( 'awesome-dokan-admin-js', AWESOME_DOKAN_ASSETS . '/js/admin.js', [ 'jquery' ], null, true );
+        wp_enqueue_script( 'awesome-dokan-admin-js', AWESOME_DOKAN_ASSETS . '/js/admin.js', [ 'jquery' ], '1.0.0', true );
     }
 
     /**
@@ -119,6 +119,14 @@ class Awesome_Dokan_Settings {
             'awesome_dokan_settings_group',
             'awesome_dokan_general_section'
         );
+		
+		add_settings_field(
+            'sidebar_hide_show',
+            __( 'Show "Sidebar Hide/Show" Icon', 'awesome-dokan' ),
+            [ $this, 'render_sidebar_hide_show_field' ],
+            'awesome_dokan_settings_group',
+            'awesome_dokan_general_section'
+        );
 
         $icons = [ 'add_product', 'visit_store', 'withdraw', 'notifications' ];
         foreach ( $icons as $icon ) {
@@ -128,7 +136,7 @@ class Awesome_Dokan_Settings {
                 function() use ( $icon ) {
                     $options = get_option( 'awesome_dokan_options' );
                     $checked = isset( $options["enable_icon_{$icon}"] ) ? $options["enable_icon_{$icon}"] : '';
-                    echo '<label><input type="checkbox" name="awesome_dokan_options[enable_icon_' . esc_attr($icon) . ']" ' . checked( $checked, 'on', false ) . '> ' . __( 'Enable this icon in the header', 'awesome-dokan' ) . '</label>';
+                    echo '<label><input type="checkbox" name="awesome_dokan_options[enable_icon_' . esc_attr($icon) . ']" ' . checked( $checked, 'on', false ) . '> ' . esc_html__( 'Enable this icon in the header', 'awesome-dokan' ) . '</label>';
                 },
                 'awesome_dokan_settings_group',
                 'awesome_dokan_general_section'
@@ -159,24 +167,24 @@ class Awesome_Dokan_Settings {
         $value = isset( $options['dashboard_logo'] ) ? $options['dashboard_logo'] : '';
         ?>
         <select name="awesome_dokan_options[dashboard_logo]">
-            <option value="site_icon" <?php selected( $value, 'site_icon' ); ?>><?php esc_html_e( 'Site Icon', 'awesome-dokan' ); ?></option>
-            <option value="main_logo" <?php selected( $value, 'main_logo' ); ?>><?php esc_html_e( 'Main Logo', 'awesome-dokan' ); ?></option>
-            <option value="custom_logo" <?php selected( $value, 'custom_logo' ); ?>><?php esc_html_e( 'Custom Logo', 'awesome-dokan' ); ?></option>
-            <option value="dashboard_icon" <?php selected( $value, 'dashboard_icon' ); ?>><?php esc_html_e( 'Dashboard Icon', 'awesome-dokan' ); ?></option>
-            <option value="none" <?php selected( $value, 'none' ); ?>><?php esc_html_e( 'None', 'awesome-dokan' ); ?></option>
+            <option value="site_icon" <?php selected( $value, 'site_icon' ); ?>><?php echo esc_html__( 'Site Icon', 'awesome-dokan' ); ?></option>
+            <option value="main_logo" <?php selected( $value, 'main_logo' ); ?>><?php echo esc_html__( 'Main Logo', 'awesome-dokan' ); ?></option>
+            <option value="custom_logo" <?php selected( $value, 'custom_logo' ); ?>><?php echo esc_html__( 'Custom Logo', 'awesome-dokan' ); ?></option>
+            <option value="dashboard_icon" <?php selected( $value, 'dashboard_icon' ); ?>><?php echo esc_html__( 'Dashboard Icon', 'awesome-dokan' ); ?></option>
+            <option value="none" <?php selected( $value, 'none' ); ?>><?php echo esc_html__( 'None', 'awesome-dokan' ); ?></option>
         </select>
         <?php
     }
 
     public function render_custom_logo_field() {
         $options = get_option( 'awesome_dokan_options' );
-        $logo_url = isset( $options['custom_logo'] ) ? esc_url( $options['custom_logo'] ) : '';
+        $logo_url = isset( $options['custom_logo'] ) ? $options['custom_logo'] : '';
         ?>
-        <input type="text" name="awesome_dokan_options[custom_logo]" id="custom_logo" value="<?php echo $logo_url; ?>" class="regular-text">
-        <button type="button" class="button" id="upload_custom_logo">Upload Logo</button>
+        <input type="text" name="awesome_dokan_options[custom_logo]" id="custom_logo" value="<?php echo esc_url($logo_url); ?>" class="regular-text">
+        <button type="button" class="button" id="upload_custom_logo"><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button>
         <div id="custom_logo_preview" style="margin-top:10px;">
             <?php if ( $logo_url ) : ?>
-                <img src="<?php echo $logo_url; ?>" style="max-height: 50px;" />
+                <img src="<?php echo esc_url($logo_url); ?>" style="max-height: 50px;" />
             <?php endif; ?>
         </div>
         <?php
@@ -187,7 +195,15 @@ class Awesome_Dokan_Settings {
         $logo_url = isset( $options['logo_url'] ) ? esc_url( $options['logo_url'] ) : '';
         ?>
         <input type="text" name="awesome_dokan_options[logo_url]" id="logo_url" value="<?php echo esc_url($logo_url); ?>" class="regular-text" placeholder="Enter logo URL">
-        <p class="description">Default home URL</p>
+        <p class="description"><?php echo esc_html__('Default is set to home URL','awesome-dokan'); ?></p>
+        <?php
+    }
+
+    public function render_sidebar_hide_show_field() {
+        $options = get_option( 'awesome_dokan_options' );
+        $checked = isset( $options['sidebar_hide_show'] ) ? $options['sidebar_hide_show'] : '';
+        ?>
+        <label><input type="checkbox" name="awesome_dokan_options[sidebar_hide_show]" id="sidebar_hide_show" <?php echo checked( $checked, 'on', false ); ?> class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site','awesome-dokan'); ?></label>
         <?php
     }
 

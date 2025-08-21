@@ -1,16 +1,16 @@
 <?php
 /**
  * Plugin Name:       Awesome Dokan
- * Plugin URI:        https://example.com/
+ * Requires Plugins:  dokan-lite
  * Description:       Replaces the default Dokan dashboard with a fresh, modern, and user-friendly design.
- * Version:           1.1.0
- * Author:            Your Name
- * Author URI:        https://example.com/
+ * Version:           1.0.0
+ * Author:            Raihan
+ * Requires at least: 5.2
+ * Requires PHP: 	  7.2
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       awesome-dokan
  * Domain Path:       /languages
- * Dokan Requires:    3.0.0
  */
 
 // Don't call this file directly

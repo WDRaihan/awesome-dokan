@@ -88,7 +88,13 @@ function awesome_dokan_dashboard_wrap_start(){
 		</div>
 
 		<div class="header-right">
-			<a href="#" class="awesome-navigation-toggle-button icon-btn tips" data-original-title="Toggle Sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
+			<?php
+			$sidebar_hide_show = isset( $options["sidebar_hide_show"] ) ? $options["sidebar_hide_show"] : '';
+			if( $sidebar_hide_show == 'on' ){
+			?>
+				<a href="#" class="awesome-navigation-toggle-button icon-btn tips" data-original-title="Hide/Show the sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
+			<?php } ?>
+			
 			<?php
 			$add_product = isset( $options["enable_icon_add_product"] ) ? $options["enable_icon_add_product"] : '';
 	
@@ -105,7 +111,7 @@ function awesome_dokan_dashboard_wrap_start(){
 			
 				if ( current_user_can( 'dokan_add_product' ) ) {
 				?>
-				<a href="<?php echo esc_url( $new_product_url ); ?>" class="icon-btn tips <?php echo $disable_product_popup ? '' : 'dokan-add-new-product'; ?>" data-original-title="Add New Product">
+				<a href="<?php echo esc_url( $new_product_url ); ?>" class="icon-btn tips <?php echo $disable_product_popup ? '' : esc_attr('dokan-add-new-product'); ?>" data-original-title="Add New Product">
 					<i class="fas fa-plus"></i>
 				</a>
 				<?php
@@ -116,7 +122,7 @@ function awesome_dokan_dashboard_wrap_start(){
 			$visit_store = isset( $options["enable_icon_visit_store"] ) ? $options["enable_icon_visit_store"] : '';
 			if( $visit_store == 'on' ){
 				?>
-				<a target="_blank" href="<?php echo dokan_get_store_url( dokan_get_current_user_id() ); ?>" class="icon-btn tips" data-original-title="Visit Store">
+				<a target="_blank" href="<?php echo esc_url(dokan_get_store_url( dokan_get_current_user_id() )); ?>" class="icon-btn tips" data-original-title="Visit Store">
 					<i class="fas fa-store"></i>
 				</a>
 			<?php } ?>
@@ -148,7 +154,7 @@ function awesome_dokan_dashboard_wrap_start(){
 				</span>
 				<ul class="avatar-dropdown">
 					<li><a href="<?php echo esc_url( dokan_get_navigation_url( 'edit-account' ) ); ?>"><i class="fas fa-user"></i> <?php echo esc_html__('Edit Account', 'awesome-dokan'); ?></a></li>
-					<li><a href="<?php echo wp_logout_url( home_url() ); ?>"><i class="fas fa-power-off"></i> <?php echo esc_html__('Log Out', 'awesome-dokan'); ?></a></li>
+					<li><a href="<?php echo esc_url(wp_logout_url( home_url() )); ?>"><i class="fas fa-power-off"></i> <?php echo esc_html__('Log Out', 'awesome-dokan'); ?></a></li>
 				</ul>
 			</div>
 		</div>
