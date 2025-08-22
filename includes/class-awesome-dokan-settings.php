@@ -72,7 +72,7 @@ class Awesome_Dokan_Settings {
      * Initialize the settings.
      */
     public function settings_init() {
-        register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_options' );
+        register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_options', array( 'sanitize_callback' => [$this, 'awesome_dokan_sanitize_options'], ) );
 
         add_settings_section(
             'awesome_dokan_general_section',
@@ -137,7 +137,7 @@ class Awesome_Dokan_Settings {
                 function() use ( $icon ) {
                     $options = get_option( 'awesome_dokan_options' );
                     $checked = isset( $options["enable_icon_{$icon}"] ) ? $options["enable_icon_{$icon}"] : '';
-                    echo '<label><input type="checkbox" name="awesome_dokan_options[enable_icon_' . esc_attr($icon) . ']" ' . checked( $checked, 'on', false ) . '> ' . esc_html__( 'Enable this icon in the header', 'awesome-dokan' ) . '</label>';
+                    echo '<label><input type="checkbox" name="awesome_dokan_options[enable_icon_' . esc_attr($icon) . ']" value="on" ' . checked( $checked, 'on', false ) . '> ' . esc_html__( 'Enable this icon in the header', 'awesome-dokan' ) . '</label>';
                 },
                 'awesome_dokan_settings_group',
                 'awesome_dokan_general_section'
@@ -150,7 +150,7 @@ class Awesome_Dokan_Settings {
         $checked = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : '';
         ?>
         <label for="enable_new_design">
-            <input type="checkbox" name="awesome_dokan_options[enable_new_design]" id="enable_new_design" <?php checked( $checked, 'on' ); ?>>
+            <input type="checkbox" name="awesome_dokan_options[enable_new_design]" id="enable_new_design" value="on" <?php checked( $checked, 'on' ); ?>>
             <?php echo '<span class="description">'.esc_html__( 'Check this box to replace the default Dokan dashboard with the new design.', 'awesome-dokan' ).'</span>'; ?>
         </label>
         <?php
@@ -225,6 +225,33 @@ class Awesome_Dokan_Settings {
         </div>
         <?php
     }
+	
+	//Sanitize fields
+	public function awesome_dokan_sanitize_options( $input ) {
+		$output = array();
+
+		if ( is_array( $input ) ) {
+			foreach ( $input as $key => $value ) {
+
+				switch ( $key ) {
+					case 'custom_logo':
+					case 'logo_url':
+						$output[ $key ] = sanitize_url( $value );
+						break;
+
+					default:
+						$output[ $key ] = sanitize_text_field( $value );
+						break;
+				}
+
+			}
+		} else {
+			$output = sanitize_text_field( $input );
+		}
+
+		return $output;
+	}
+
 }
 
 Awesome_Dokan_Settings::instance();
