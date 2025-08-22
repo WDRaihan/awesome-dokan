@@ -9,9 +9,7 @@ add_filter( 'dokan_load_hamburger_menu', '__return_false' );
 //Remove default common links
 add_filter( 'dokan_dashboard_nav_common_link', '__return_false' );
 
-/**
- * Removes the Dokan Color Scheme Customizer styles from the wp_head action.
- */
+//Removes the Dokan Color Scheme Customizer styles from the wp_head action.
 function awesome_dokan_remove_dokan_color_customizer_styles() {
     // Check if the Dokan Pro function and the specific module exist
     if ( function_exists( 'dokan_pro' ) ) {
@@ -22,8 +20,6 @@ function awesome_dokan_remove_dokan_color_customizer_styles() {
         remove_action( 'wp_head', [ $color_module_instance, 'load_styles' ], 10 );
     }
 }
-
-// Hook into an action that runs after the Dokan plugin has been loaded
 add_action( 'init', 'awesome_dokan_remove_dokan_color_customizer_styles', 20 );
 
 add_action('dokan_dashboard_wrap_start', 'awesome_dokan_dashboard_wrap_start');
