@@ -52,7 +52,9 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         wp_enqueue_media();
-        wp_enqueue_script( 'awesome-dokan-admin-js', AWESOME_DOKAN_ASSETS . '/js/admin.js', [ 'jquery' ], '1.0.0', true );
+		wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_script( 'awesome-dokan-admin-js', AWESOME_DOKAN_ASSETS . '/js/admin.js', [ 'jquery', 'wp-color-picker' ], AWESOME_DOKAN_VERSION, true );
+        wp_enqueue_style( 'awesome-dokan-admin-css', AWESOME_DOKAN_ASSETS . '/css/admin.css', [], AWESOME_DOKAN_VERSION );
     }
 
     /**
@@ -73,6 +75,7 @@ class Awesome_Dokan_Settings {
      */
     public function settings_init() {
         register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_options', array( 'sanitize_callback' => [$this, 'awesome_dokan_sanitize_options'], ) );
+        register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_styles' );
 
         add_settings_section(
             'awesome_dokan_general_section',
@@ -143,9 +146,24 @@ class Awesome_Dokan_Settings {
                 'awesome_dokan_general_section'
             );
         }
+		
+		add_settings_section(
+            'awesome_dokan_style_section',
+            __( 'Styles', 'awesome-dokan' ),
+            '__return_false',
+            'awesome_dokan_styles_group'
+        );
+
+        add_settings_field(
+            'header_bg_color',
+            __( 'Header Bancground Color', 'awesome-dokan' ),
+            [ $this, 'render_header_bg_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_style_section',
+        );
     }
 
-    public function render_enable_design_field() {
+	public function render_enable_design_field() {
         $options = get_option( 'awesome_dokan_options' );
         $checked = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : '';
         ?>
@@ -207,6 +225,17 @@ class Awesome_Dokan_Settings {
         <label><input type="checkbox" name="awesome_dokan_options[sidebar_hide_show]" id="sidebar_hide_show" <?php echo checked( $checked, 'on', false ); ?> class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site','awesome-dokan'); ?></label>
         <?php
     }
+	
+	public function render_header_bg_color_field() {
+        $options = get_option( 'awesome_dokan_styles' );
+        $header_bg_color = isset( $options['header_bg_color'] ) ? $options['header_bg_color'] : '';
+        ?>
+        <label for="header_bg_color">
+            <input type="text" name="awesome_dokan_styles[header_bg_color]" class="awesome-dokan-color-field" id="header_bg_color" value="<?php echo esc_attr($header_bg_color); ?>">
+            <?php echo '<span class="description">'.esc_html__( 'Change awesome dokan header background color.', 'awesome-dokan' ).'</span>'; ?>
+        </label>
+        <?php
+    }
 
     public function settings_page_html() {
         if ( ! current_user_can( 'manage_options' ) ) {
@@ -215,12 +244,43 @@ class Awesome_Dokan_Settings {
         ?>
         <div class="wrap">
             <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+            <?php settings_errors(); ?>
             <form action="options.php" method="post">
-                <?php
-                settings_fields( 'awesome_dokan_settings_group' );
-                do_settings_sections( 'awesome_dokan_settings_group' );
-                submit_button( __( 'Save Settings', 'awesome-dokan' ) );
-                ?>
+				<div class="awesome-dokan-container">
+					<?php settings_fields( 'awesome_dokan_settings_group' ); ?>
+					<?php //settings_fields( 'awesome_dokan_styles_group' ); ?>
+					<!-- Tab Navigation -->
+					<div class="awesome-dokan-tabs-wrapper">
+						<ul class="awesome-dokan-tabs-nav">
+							<li>
+								<a href="#awesome-dokan-tab1" class="active">General Settings</a>
+							</li>
+							<li>
+								<a href="#awesome-dokan-tab2">Styles</a>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Tab Content -->
+					<div class="awesome-dokan-tabs-content">
+						<!-- Tab 1 Content -->
+						<div id="awesome-dokan-tab1" class="awesome-dokan-tab-panel">
+							<?php
+							do_settings_sections( 'awesome_dokan_settings_group' );
+							?>
+						</div>
+
+						<!-- Tab 2 Content -->
+						<div id="awesome-dokan-tab2" class="awesome-dokan-tab-panel" style="display: none;">
+							<?php
+							do_settings_sections( 'awesome_dokan_styles_group' );
+							?>
+						</div>
+					</div>
+					<?php
+					submit_button( __( 'Save Settings', 'awesome-dokan' ) );
+					?>
+				</div>
             </form>
         </div>
         <?php

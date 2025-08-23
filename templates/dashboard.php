@@ -138,12 +138,12 @@ function awesome_dokan_dashboard_wrap_start(){
 			<?php
 			$notifications = isset( $options["enable_icon_notifications"] ) ? $options["enable_icon_notifications"] : '';
 				if( $notifications == 'on' ){
-				$new_orders = dokan_count_orders( dokan_get_current_user_id(), 'pending' );
+				$new_orders = (array) dokan_count_orders( dokan_get_current_user_id() );
 				?>
 				<a href="<?php echo esc_url( dokan_get_navigation_url( 'orders' ) ); ?>" class="icon-btn tips" data-original-title="New Orders">
 					<i class="fas fa-shopping-cart"></i>
 					<?php if ( $new_orders ) : ?>
-					<span class="badge"><?php echo isset( $new_orders->count ) ? intval( $new_orders->count ) : 0; ?></span>
+					<span class="badge"><?php echo isset( $new_orders['wc-processing'] ) ? intval( $new_orders['wc-processing'] ) : 0; ?></span>
 
 					<?php endif; ?>
 				</a>

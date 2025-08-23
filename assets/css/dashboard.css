@@ -44,10 +44,12 @@
 .dokan-dashboard #awesome_dokan_wrapper.awesome-dokan-fullscreen-mode .dokan-dashboard-wrap {
 	height: 100%
 }
+
 .dokan-dashboard #awesome_dokan_wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active:after {
-    left: auto;
-    right: 0;
+	left: auto;
+	right: 0;
 }
+
 .header-left {
 	display: flex;
 	align-items: center;
@@ -198,15 +200,6 @@ a.awesome-dashboard-logo {
 	background: var(--awesome-background-color, var(--awesome-default-background-color, var(--dokan-sidebar-background-color, #322067))) !important;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
-
-/*.dokan-dashboard .dokan-dash-sidebar ul.dokan-dashboard-menu li a {
-    color: #444 !important;
-}
-
-.dokan-dashboard .dokan-dash-sidebar ul.dokan-dashboard-menu li.active a, .dokan-dashboard .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover a {
-    color: #fff !important;
-    font-weight: normal;
-}*/
 
 .dokan-dashboard .dokan-dashboard-content {
 	background: #f8fafc;
