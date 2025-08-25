@@ -148,16 +148,87 @@ class Awesome_Dokan_Settings {
         }
 		
 		add_settings_section(
+            'awesome_dokan_theme_color_section',
+            __( 'Theme Color', 'awesome-dokan' ),
+            [ $this, 'render_theme_color_field' ],
+            'awesome_dokan_styles_group'
+        );
+
+        add_settings_field(
+            'theme_primary_color',
+            __( 'Primary Color', 'awesome-dokan' ),
+            [ $this, 'render_theme_primary_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_theme_color_section',
+        );
+
+        add_settings_field(
+            'theme_secondary_color',
+            __( 'Secondary Color', 'awesome-dokan' ),
+            [ $this, 'render_theme_secondary_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_theme_color_section',
+        );
+		
+		add_settings_section(
             'awesome_dokan_style_section',
-            __( 'Styles', 'awesome-dokan' ),
+            __( 'Customize Vendor Dashboard Color', 'awesome-dokan' ),
             '__return_false',
             'awesome_dokan_styles_group'
         );
 
         add_settings_field(
             'header_bg_color',
-            __( 'Header Bancground Color', 'awesome-dokan' ),
+            __( 'Header Background Color', 'awesome-dokan' ),
             [ $this, 'render_header_bg_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_style_section',
+        );
+
+        add_settings_field(
+            'sidebar_bg_color',
+            __( 'Sidebar Background Color', 'awesome-dokan' ),
+            [ $this, 'render_sidebar_bg_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_style_section',
+        );
+
+        add_settings_field(
+            'content_bg_color',
+            __( 'Content Background Color', 'awesome-dokan' ),
+            [ $this, 'render_content_bg_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_style_section',
+        );
+
+        add_settings_field(
+            'header_font_color',
+            __( 'Header Font Color', 'awesome-dokan' ),
+            [ $this, 'render_header_font_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_style_section',
+        );
+
+        add_settings_field(
+            'sidebar_font_color',
+            __( 'Sidebar Font Color', 'awesome-dokan' ),
+            [ $this, 'render_sidebar_font_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_style_section',
+        );
+
+        add_settings_field(
+            'sidebar_font_active_color',
+            __( 'Sidebar Font Active Color', 'awesome-dokan' ),
+            [ $this, 'render_sidebar_font_active_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_style_section',
+        );
+
+        add_settings_field(
+            'sidebar_font_active_bg_color',
+            __( 'Sidebar Font Active Background Color', 'awesome-dokan' ),
+            [ $this, 'render_sidebar_font_active_bg_color_field' ],
             'awesome_dokan_styles_group',
             'awesome_dokan_style_section',
         );
@@ -226,13 +297,97 @@ class Awesome_Dokan_Settings {
         <?php
     }
 	
+	public function render_theme_color_field() {
+        echo '<p class="description">'.esc_html__( 'Select your theme colors. These colors will be applied to your Dokan marketplace.', 'awesome-dokan' ).'</p>';
+    }
+	
+	public function render_theme_primary_color_field() {
+        $styles = get_option( 'awesome_dokan_styles' );
+        $theme_primary_color = isset( $styles['theme_primary_color'] ) ? $styles['theme_primary_color'] : '';
+        ?>
+        <label for="theme_primary_color">
+            <input type="text" name="awesome_dokan_styles[theme_primary_color]" class="awesome-dokan-color-field" id="theme_primary_color" value="<?php echo esc_attr($theme_primary_color); ?>">
+        </label>
+        <?php
+    }
+	
+	public function render_theme_secondary_color_field() {
+        $styles = get_option( 'awesome_dokan_styles' );
+        $theme_secondary_color = isset( $styles['theme_secondary_color'] ) ? $styles['theme_secondary_color'] : '';
+        ?>
+        <label for="theme_secondary_color">
+            <input type="text" name="awesome_dokan_styles[theme_secondary_color]" class="awesome-dokan-color-field" id="theme_secondary_color" value="<?php echo esc_attr($theme_secondary_color); ?>">
+        </label>
+        <br><br>
+        <?php
+    }
+	
 	public function render_header_bg_color_field() {
-        $options = get_option( 'awesome_dokan_styles' );
-        $header_bg_color = isset( $options['header_bg_color'] ) ? $options['header_bg_color'] : '';
+        $styles = get_option( 'awesome_dokan_styles' );
+        $header_bg_color = isset( $styles['header_bg_color'] ) ? $styles['header_bg_color'] : '';
         ?>
         <label for="header_bg_color">
             <input type="text" name="awesome_dokan_styles[header_bg_color]" class="awesome-dokan-color-field" id="header_bg_color" value="<?php echo esc_attr($header_bg_color); ?>">
-            <?php echo '<span class="description">'.esc_html__( 'Change awesome dokan header background color.', 'awesome-dokan' ).'</span>'; ?>
+        </label>
+        <?php
+    }
+	
+	public function render_sidebar_bg_color_field() {
+        $styles = get_option( 'awesome_dokan_styles' );
+        $sidebar_bg_color = isset( $styles['sidebar_bg_color'] ) ? $styles['sidebar_bg_color'] : '';
+        ?>
+        <label for="sidebar_bg_color">
+            <input type="text" name="awesome_dokan_styles[sidebar_bg_color]" class="awesome-dokan-color-field" id="sidebar_bg_color" value="<?php echo esc_attr($sidebar_bg_color); ?>">
+        </label>
+        <?php
+    }
+	
+	public function render_content_bg_color_field() {
+        $styles = get_option( 'awesome_dokan_styles' );
+        $content_bg_color = isset( $styles['content_bg_color'] ) ? $styles['content_bg_color'] : '';
+        ?>
+        <label for="content_bg_color">
+            <input type="text" name="awesome_dokan_styles[content_bg_color]" class="awesome-dokan-color-field" id="content_bg_color" value="<?php echo esc_attr($content_bg_color); ?>">
+        </label>
+        <?php
+    }
+	
+	public function render_header_font_color_field() {
+        $styles = get_option( 'awesome_dokan_styles' );
+        $header_font_color = isset( $styles['header_font_color'] ) ? $styles['header_font_color'] : '';
+        ?>
+        <label for="header_font_color">
+            <input type="text" name="awesome_dokan_styles[header_font_color]" class="awesome-dokan-color-field" id="header_font_color" value="<?php echo esc_attr($header_font_color); ?>">
+        </label>
+        <?php
+    }
+	
+	public function render_sidebar_font_color_field() {
+        $styles = get_option( 'awesome_dokan_styles' );
+        $header_font_color = isset( $styles['sidebar_font_color'] ) ? $styles['sidebar_font_color'] : '';
+        ?>
+        <label for="sidebar_font_color">
+            <input type="text" name="awesome_dokan_styles[sidebar_font_color]" class="awesome-dokan-color-field" id="sidebar_font_color" value="<?php echo esc_attr($header_font_color); ?>">
+        </label>
+        <?php
+    }
+	
+	public function render_sidebar_font_active_color_field() {
+        $styles = get_option( 'awesome_dokan_styles' );
+        $sidebar_font_active_color = isset( $styles['sidebar_font_active_color'] ) ? $styles['sidebar_font_active_color'] : '';
+        ?>
+        <label for="sidebar_font_active_color">
+            <input type="text" name="awesome_dokan_styles[sidebar_font_active_color]" class="awesome-dokan-color-field" id="sidebar_font_active_color" value="<?php echo esc_attr($sidebar_font_active_color); ?>">
+        </label>
+        <?php
+    }
+	
+	public function render_sidebar_font_active_bg_color_field() {
+        $styles = get_option( 'awesome_dokan_styles' );
+        $sidebar_font_active_bg_color = isset( $styles['sidebar_font_active_bg_color'] ) ? $styles['sidebar_font_active_bg_color'] : '';
+        ?>
+        <label for="sidebar_font_active_bg_color">
+            <input type="text" name="awesome_dokan_styles[sidebar_font_active_bg_color]" class="awesome-dokan-color-field" id="sidebar_font_active_bg_color" value="<?php echo esc_attr($sidebar_font_active_bg_color); ?>">
         </label>
         <?php
     }

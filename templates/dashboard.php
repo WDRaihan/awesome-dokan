@@ -25,11 +25,46 @@ add_action( 'init', 'awesome_dokan_remove_dokan_color_customizer_styles', 20 );
 add_action('dokan_dashboard_wrap_start', 'awesome_dokan_dashboard_wrap_start');
 function awesome_dokan_dashboard_wrap_start(){
 	$options = get_option( 'awesome_dokan_options' );
+	$styles = get_option( 'awesome_dokan_styles' );
+	$header_bg_color = isset( $styles['header_bg_color'] ) ? $styles['header_bg_color'] : '';
+	$header_font_color = isset( $styles['header_font_color'] ) ? $styles['header_font_color'] : '';
+	$sidebar_bg_color = isset( $styles['sidebar_bg_color'] ) ? $styles['sidebar_bg_color'] : '';
+	$sidebar_font_active_bg_color = isset( $styles['sidebar_font_active_bg_color'] ) ? $styles['sidebar_font_active_bg_color'] : '';
+	$sidebar_font_color = isset( $styles['sidebar_font_color'] ) ? $styles['sidebar_font_color'] : '';
+	$sidebar_font_active_color = isset( $styles['sidebar_font_active_color'] ) ? $styles['sidebar_font_active_color'] : '';
+	$content_bg_color = isset( $styles['content_bg_color'] ) ? $styles['content_bg_color'] : '';
 	?>
+	<style>
+	:root {
+		<?php
+		if(!empty($header_bg_color)){
+			echo esc_attr('--awesome-header-background-color: '.$header_bg_color.';');
+		}
+		if(!empty($header_font_color)){
+			echo esc_attr('--awesome-header-font-color: '.$header_font_color.';');
+		}
+		if(!empty($sidebar_bg_color)){
+			echo esc_attr('--awesome-sidebar-background-color: '.$sidebar_bg_color.';');
+		}
+		if(!empty($sidebar_font_active_bg_color)){
+			echo esc_attr('--awesome-sidebar-font-background-color: '.$sidebar_font_active_bg_color.';');
+		}
+		if(!empty($sidebar_font_color)){
+			echo esc_attr('--awesome-sidebar-font-color: '.$sidebar_font_color.';');
+		}
+		if(!empty($sidebar_font_active_color)){
+			echo esc_attr('--awesome-sidebar-font-active-color: '.$sidebar_font_active_color.';');
+		}
+		if(!empty($content_bg_color)){
+			echo esc_attr('--awesome-content-background-color: '.$content_bg_color.';');
+		}
+		?>
+	}
+	</style>
 <div class="awesome-dokan-wrapper awesome-dokan-fullscreen-mode-" id="awesome_dokan_wrapper">
 
 	<div class="awesome-dokan-header">
-		<div class="header-left">
+		<div class="awesome-header-left">
 			<div class="awesome-navigation-toggle"><a href="#" class="awesome-navigation-toggle-button"><i class="fa fa-bars" aria-hidden="true"></i></a></div>
 			<?php 
 			$dashboard_logo = isset( $options['dashboard_logo'] ) ? $options['dashboard_logo'] : '';
@@ -88,7 +123,7 @@ function awesome_dokan_dashboard_wrap_start(){
 			<h3 class="awesome-dokan-header-title awesome-hide-mobile"><?php echo esc_html($greeting_message); ?></h3>
 		</div>
 
-		<div class="header-right">
+		<div class="awesome-header-right">
 			<?php
 			$sidebar_hide_show = isset( $options["sidebar_hide_show"] ) ? $options["sidebar_hide_show"] : '';
 			if( $sidebar_hide_show == 'on' ){
@@ -148,12 +183,12 @@ function awesome_dokan_dashboard_wrap_start(){
 					<?php endif; ?>
 				</a>
 			<?php } ?>
-			<div class="avatar-wrap">
+			<div class="awesome-avatar-wrap">
 				<span class="awesome-user-avatar">
 					<?php echo get_avatar( get_current_user_id(), 32 ); ?>
 					<i class="fas fa-chevron-down"></i>
 				</span>
-				<ul class="avatar-dropdown">
+				<ul class="awesome-avatar-dropdown">
 					<li><a href="<?php echo esc_url( dokan_get_navigation_url( 'edit-account' ) ); ?>"><i class="fas fa-user"></i> <?php echo esc_html__('Edit Account', 'awesome-dokan'); ?></a></li>
 					<li><a href="<?php echo esc_url(wp_logout_url( home_url() )); ?>"><i class="fas fa-power-off"></i> <?php echo esc_html__('Log Out', 'awesome-dokan'); ?></a></li>
 				</ul>

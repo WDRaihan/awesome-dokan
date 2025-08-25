@@ -1,6 +1,9 @@
 :root {
-	/*--awesome-background-color: '';*/
-	/*	--awesome-default-background-color: #f8fafc;*/
+	--awesome-default-background-color: var(--dokan-sidebar-background-color, #322067);
+	--awesome-default-font-color: #ffffff;
+	--awesome-default-font-background-color: #7047EB;
+	--awesome-default-sidebar-font-color: #ffffff;
+	--awesome-default-content-background-color: #f8fafc;
 }
 
 #awesome_dokan_wrapper.awesome-dokan-fullscreen-mode {
@@ -17,7 +20,7 @@
 .awesome-dokan-header {
 	display: flex;
 	padding: 20px 18px;
-	background: var(--awesome-background-color, var(--awesome-default-background-color, var(--dokan-sidebar-background-color, #322067)));
+	background: var(--awesome-header-background-color, var(--awesome-default-background-color));
 	flex-wrap: wrap;
 	gap: 15px;
 	box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.49);
@@ -50,7 +53,7 @@
 	right: 0;
 }
 
-.header-left {
+.awesome-header-left {
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -64,7 +67,7 @@ a.awesome-dashboard-logo {
 }
 
 .awesome-dashboard-logo i {
-	color: #fff;
+	color: var(--awesome-header-font-color, var(--awesome-default-font-color));
 	text-decoration: none;
 	font-size: 34px;
 	line-height: 37px;
@@ -75,54 +78,53 @@ a.awesome-dashboard-logo {
 	max-width: 36px;
 }
 
-.awesome-dokan-header .header-left h3.awesome-dokan-header-title {
+.awesome-dokan-header .awesome-header-left h3.awesome-dokan-header-title {
 	font-size: 17px !important;
 	font-weight: 500 !important;
-	color: #fff !important;
+	color: var(--awesome-header-font-color, var(--awesome-default-font-color)) !important;
 	line-height: 20px !important;
 	display: inline-block;
 	margin: 0 !important;
 }
 
-.header-right {
+.awesome-dokan-header .awesome-header-right {
 	display: flex;
 	align-items: center;
 	gap: 33px;
 }
 
-.icon-btn {
+.awesome-dokan-header .icon-btn {
 	position: relative;
-	/*	background: #fff;*/
 	padding: 0;
 	margin: 0;
 	border-radius: 50%;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-	color: #fff !important;
+	color: var(--awesome-header-font-color, var(--awesome-default-font-color)) !important;
 	text-decoration: none;
 	transition: background 0.2s ease;
 	outline: 0
 }
 
-.icon-btn:hover,
-.icon-btn:active,
-.icon-btn:focus,
+.awesome-dokan-header .icon-btn:hover,
+.awesome-dokan-header .icon-btn:active,
+.awesome-dokan-header .icon-btn:focus,
 .awesome-user-avatar:hover i {
 	background-color: none;
 	outline: 0;
 	opacity: 0.8
 }
 
-.icon-btn i {
+.awesome-dokan-header .icon-btn i {
 	font-size: 16px;
 }
 
-.badge {
+.awesome-dokan-header .badge {
 	line-height: 20px;
 	position: absolute;
 	top: -8px;
 	right: -14px;
 	background: #ef4444;
-	color: #fff;
+	color: #ffffff;
 	font-size: 10px;
 	border-radius: 50%;
 	padding: 0;
@@ -131,7 +133,7 @@ a.awesome-dashboard-logo {
 	text-align: center;
 }
 
-.avatar-wrap {
+.awesome-dokan-header .awesome-avatar-wrap {
 	position: relative;
 }
 
@@ -151,14 +153,14 @@ a.awesome-dashboard-logo {
 	height: 36px;
 }
 
-.avatar-dropdown {
+.awesome-avatar-dropdown {
 	display: none;
 	position: absolute;
 	right: -18px;
 	top: 52px;
-	background: var(--awesome-background-color, var(--awesome-default-background-color, var(--dokan-sidebar-background-color, #322067))) !important;
+	background: var(--awesome-header-background-color, var(--awesome-default-background-color)) !important;
 	border-radius: 5px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
 	min-width: 150px;
 	z-index: 999;
 	padding: 10px 0 !important;
@@ -166,25 +168,26 @@ a.awesome-dashboard-logo {
 	transition: 0.5s;
 }
 
-.avatar-dropdown li {
+.awesome-avatar-dropdown li {
 	list-style: none;
 }
 
-.avatar-dropdown a {
+.awesome-avatar-dropdown a {
 	display: block;
 	padding: 6px 16px;
-	color: #fff;
+	color: var(--awesome-header-font-color, var(--awesome-default-font-color));
 	text-decoration: none;
 	font-size: 14px;
 	text-decoration: none !important
 }
 
-.avatar-dropdown a i {
+.awesome-avatar-dropdown a i {
 	margin-right: 7px;
 }
 
-.avatar-dropdown a:hover {
-	opacity: 0.8
+.awesome-avatar-dropdown a:hover {
+	opacity: 0.8;
+	font-weight: bold;
 }
 
 .awesome-dokan-wrapper {
@@ -192,38 +195,48 @@ a.awesome-dashboard-logo {
 	padding-top: 75px;
 }
 
-.awesome-dokan-wrapper ul.dokan-dashboard-menu {
-	background: var(--awesome-background-color, var(--awesome-default-background-color, var(--dokan-sidebar-background-color, #322067))) !important;
+.awesome-dokan-wrapper ul.dokan-dashboard-menu,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li {
+	background: var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) !important;
 }
 
 .awesome-dokan-wrapper .dokan-dash-sidebar {
-	background: var(--awesome-background-color, var(--awesome-default-background-color, var(--dokan-sidebar-background-color, #322067))) !important;
+	background: var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) !important;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
-
-.dokan-dashboard .dokan-dashboard-content {
-	background: #f8fafc;
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover:not(.active).has-submenu:after {
+    border-color: transparent var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) transparent transparent;
+    border-left-color: var(--awesome-sidebar-background-color, var(--awesome-default-background-color));
+}
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dashboard-content {
+	background: var(--awesome-content-background-color, var(--awesome-default-content-background-color));
 	padding-top: 20px !important;
 	padding-right: 15px !important;
 	padding-bottom: 15px !important
 }
 
-.dokan-dash-sidebar {
-	padding-top: 2px;
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active:after {
+    border-color: transparent var(--awesome-content-background-color, var(--awesome-default-content-background-color)) transparent transparent;
+    border-left-color: var(--awesome-content-background-color, var(--awesome-default-content-background-color));
+}
+
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar {
+	padding-top: 1px;
 }
 
 .padding-left-15 {
 	padding-left: 15px !important
 }
 
-.header-left .awesome-navigation-toggle {
+.awesome-header-left .awesome-navigation-toggle {
 	display: none;
-	color: #fff
+	color: var(--awesome-header-font-color, var(--awesome-default-font-color));
 }
 
 .awesome-dokan-wrapper .awesome-user-avatar i {
 	font-size: 12px;
-	color: #fff;
+	color: var(--awesome-header-font-color, var(--awesome-default-font-color));
 }
 
 .awesome-dokan-wrapper a.awesome-user-avatar {
@@ -240,7 +253,7 @@ a.awesome-navigation-toggle-button {
 }
 
 a.awesome-navigation-toggle-button i {
-	color: #fff;
+	color: var(--awesome-header-font-color, var(--awesome-default-font-color));
 	font-size: 16px;
 }
 
@@ -252,8 +265,32 @@ a.awesome-navigation-toggle-button:hover i {
 	background: transparent;
 }
 
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover {
+    background: var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color));
+}
+
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li a,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li a {
+	color: var(--awesome-sidebar-font-color, var(--awesome-default-sidebar-font-color));
+}
+
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active a,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover a,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li:hover a,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li.current a {
+	color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-color));
+}
+
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li:hover:before,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li.current:before {
+    border-color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-color));
+}
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active ul.navigation-submenu {
+	    border-bottom: 0.5px solid var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color));
+}
 @media (max-width: 767px) {
-	.header-right {
+	.awesome-header-right {
 		gap: 25px;
 	}
 
@@ -266,15 +303,15 @@ a.awesome-navigation-toggle-button:hover i {
 	}
 
 	.awesome-dashboard-logo,
-	.awesome-dokan-header .header-left h3.awesome-dokan-header-title {
+	.awesome-dokan-header .awesome-header-left h3.awesome-dokan-header-title {
 		display: none
 	}
 
-	.header-left .awesome-navigation-toggle {
+	.awesome-header-left .awesome-navigation-toggle {
 		display: block
 	}
 
-	.header-right .awesome-navigation-toggle-button {
+	.awesome-header-right .awesome-navigation-toggle-button {
 		display: none
 	}
 
@@ -299,10 +336,6 @@ a.awesome-navigation-toggle-button:hover i {
 		display: inline-block !important;
 	}
 
-	.awesome-dokan-wrapper .dokan-dashboard-menu li.settings.has-submenu i.fa-caret-right.menu-dropdown.awesome-ratate {
-		transform: rotate(-90deg);
-	}
-
 	.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu {
 		position: unset !important;
 		box-shadow: unset !important;
@@ -319,10 +352,6 @@ a.awesome-navigation-toggle-button:hover i {
 
 	.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover a i.menu-dropdown {
 		display: inline-block !important;
-	}
-
-	.dokan-dashboard .awesome-dokan-wrapper .dokan-dashboard-wrap {
-		/*		margin-top: -10px;*/
 	}
 
 	.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar {
