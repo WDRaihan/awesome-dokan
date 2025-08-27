@@ -22,113 +22,99 @@ function awesome_dokan_remove_dokan_color_customizer_styles() {
 }
 add_action( 'init', 'awesome_dokan_remove_dokan_color_customizer_styles', 20 );
 
-add_action('dokan_dashboard_wrap_start', 'awesome_dokan_dashboard_wrap_start');
-function awesome_dokan_dashboard_wrap_start(){
+//Awesome dashboard header logo and title
+function awesome_dokan_dashboard_header_logo_title(){
 	$options = get_option( 'awesome_dokan_options' );
-	$styles = get_option( 'awesome_dokan_styles' );
-	$header_bg_color = isset( $styles['header_bg_color'] ) ? $styles['header_bg_color'] : '';
-	$header_font_color = isset( $styles['header_font_color'] ) ? $styles['header_font_color'] : '';
-	$sidebar_bg_color = isset( $styles['sidebar_bg_color'] ) ? $styles['sidebar_bg_color'] : '';
-	$sidebar_font_active_bg_color = isset( $styles['sidebar_font_active_bg_color'] ) ? $styles['sidebar_font_active_bg_color'] : '';
-	$sidebar_font_color = isset( $styles['sidebar_font_color'] ) ? $styles['sidebar_font_color'] : '';
-	$sidebar_font_active_color = isset( $styles['sidebar_font_active_color'] ) ? $styles['sidebar_font_active_color'] : '';
-	$content_bg_color = isset( $styles['content_bg_color'] ) ? $styles['content_bg_color'] : '';
+	$dashboard_logo = isset( $options['dashboard_logo'] ) ? $options['dashboard_logo'] : '';
+	
+	if( $dashboard_logo != 'none' ) :
+
+	$logo_url = isset( $options['logo_url'] ) ? esc_url( $options['logo_url'] ) : home_url();
 	?>
-	<style>
-	:root {
+	<a href="<?php echo esc_url($logo_url); ?>" class="awesome-dashboard-logo">
 		<?php
-		if(!empty($header_bg_color)){
-			echo esc_attr('--awesome-header-background-color: '.$header_bg_color.';');
-		}
-		if(!empty($header_font_color)){
-			echo esc_attr('--awesome-header-font-color: '.$header_font_color.';');
-		}
-		if(!empty($sidebar_bg_color)){
-			echo esc_attr('--awesome-sidebar-background-color: '.$sidebar_bg_color.';');
-		}
-		if(!empty($sidebar_font_active_bg_color)){
-			echo esc_attr('--awesome-sidebar-font-background-color: '.$sidebar_font_active_bg_color.';');
-		}
-		if(!empty($sidebar_font_color)){
-			echo esc_attr('--awesome-sidebar-font-color: '.$sidebar_font_color.';');
-		}
-		if(!empty($sidebar_font_active_color)){
-			echo esc_attr('--awesome-sidebar-font-active-color: '.$sidebar_font_active_color.';');
-		}
-		if(!empty($content_bg_color)){
-			echo esc_attr('--awesome-content-background-color: '.$content_bg_color.';');
+		$dashboard_logo_url = '';
+		if( $dashboard_logo == 'site_icon' && has_site_icon() ){
+			$dashboard_logo_url = get_site_icon_url(64);
+
+		}elseif( $dashboard_logo == 'main_logo' && function_exists('get_custom_logo') && has_custom_logo() ){
+			$custom_logo_id = get_theme_mod('custom_logo');
+			$dashboard_logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
+
+		}elseif( $dashboard_logo == 'custom_logo' ){
+			$dashboard_logo_url = isset( $options['custom_logo'] ) ? $options['custom_logo'] : '';
+
+		}else{
+			$dashboard_logo_url = '';
 		}
 		?>
-	}
-	</style>
-<div class="awesome-dokan-wrapper awesome-dokan-fullscreen-mode-" id="awesome_dokan_wrapper">
 
+		<?php 
+		if($dashboard_logo_url != ''){
+			?>
+			<img src="<?php echo esc_url($dashboard_logo_url); ?>" alt="Icon" />
+			<?php
+		}
+		if( $dashboard_logo == 'dashboard_icon' ){
+			?>
+			<i class="fas fa-tachometer-alt"></i>
+			<?php
+		}
+		?>
+	</a>
+	<?php endif; ?>
+	<?php
+		$user_data = get_userdata( dokan_get_current_user_id() );
+		$user_name = $user_data->display_name;
+
+		$hour = (int) current_time('H');
+		$greeting = ( $hour < 12 ) ? __('Good morning', 'awesome-dokan') : ( ( $hour < 18 ) ? __('Good afternoon', 'awesome-dokan') : __('Good evening', 'awesome-dokan') );
+
+		$dashboard_greeting = '';
+
+		if ( is_array( $options ) && isset( $options['dashboard_greeting'] ) ) {
+			$dashboard_greeting = trim( (string) $options['dashboard_greeting'] );
+		}
+
+		$greeting_message = !empty($dashboard_greeting) ? str_replace( '{user}', $user_name, $dashboard_greeting ) : '<span>'. $greeting . ',</span> ' . $user_name;
+	?>
+	<h3 class="awesome-dokan-header-title awesome-hide-mobile"><?php echo wp_kses($greeting_message, array('br' => [], 'span' => [ 'class' => true, 'style' => true, 'id' => true ])); ?></h3>
+	<?php
+}
+
+//Awesome dashboard header
+function awesome_dokan_dashboard_header(){
+	$options = get_option( 'awesome_dokan_options' );
+	$dashboard_theme = isset( $options['dashboard_theme'] ) ? $options['dashboard_theme'] : 'theme_one';
+	$sidebar_hide_show = isset( $options["sidebar_hide_show"] ) ? $options["sidebar_hide_show"] : '';
+	?>
 	<div class="awesome-dokan-header">
 		<div class="awesome-header-left">
 			<div class="awesome-navigation-toggle"><a href="#" class="awesome-navigation-toggle-button"><i class="fa fa-bars" aria-hidden="true"></i></a></div>
-			<?php 
-			$dashboard_logo = isset( $options['dashboard_logo'] ) ? $options['dashboard_logo'] : '';
-			
-			if( $dashboard_logo != 'none' ) :
-	
-			$logo_url = isset( $options['logo_url'] ) ? esc_url( $options['logo_url'] ) : home_url();
-			?>
-			<a href="<?php echo esc_url($logo_url); ?>" class="awesome-dashboard-logo">
-				<?php
-				$dashboard_logo_url = '';
-				if( $dashboard_logo == 'site_icon' && has_site_icon() ){
-					$dashboard_logo_url = get_site_icon_url(64);
-					
-				}elseif( $dashboard_logo == 'main_logo' && function_exists('get_custom_logo') && has_custom_logo() ){
-					$custom_logo_id = get_theme_mod('custom_logo');
-    				$dashboard_logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
-					
-				}elseif( $dashboard_logo == 'custom_logo' ){
-					$dashboard_logo_url = isset( $options['custom_logo'] ) ? $options['custom_logo'] : '';
-					
-				}else{
-					$dashboard_logo_url = '';
-				}
-				?>
-				
-				<?php 
-				if($dashboard_logo_url != ''){
-					?>
-					<img src="<?php echo esc_url($dashboard_logo_url); ?>" alt="Icon" />
-					<?php
-				}
-				if( $dashboard_logo == 'dashboard_icon' ){
-					?>
-					<i class="fas fa-tachometer-alt"></i>
-					<?php
-				}
-				?>
-			</a>
-			<?php endif; ?>
 			<?php
-				$user_data = get_userdata( dokan_get_current_user_id() );
-				$user_name = $user_data->display_name;
-
-				$hour = (int) current_time('H');
-				$greeting = ( $hour < 12 ) ? __('Good morning', 'awesome-dokan') : ( ( $hour < 18 ) ? __('Good afternoon', 'awesome-dokan') : __('Good evening', 'awesome-dokan') );
-
-				$dashboard_greeting = '';
-
-				if ( is_array( $options ) && isset( $options['dashboard_greeting'] ) ) {
-					$dashboard_greeting = trim( (string) $options['dashboard_greeting'] );
-				}
-
-				$greeting_message = !empty($dashboard_greeting) ? str_replace( '{user}', $user_name, $dashboard_greeting ) : $greeting . ', ' . $user_name;
+			if( $sidebar_hide_show == 'on' && $dashboard_theme == 'theme_two' ){
 			?>
-			<h3 class="awesome-dokan-header-title awesome-hide-mobile"><?php echo esc_html($greeting_message); ?></h3>
+				<a href="#" class="awesome-navigation-toggle-button awesome-desktop-navigation icon-btn tips" data-original-title="Hide/Show the sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
+			<?php } ?>
+			
+			<?php
+			if($dashboard_theme == 'theme_one'){
+				awesome_dokan_dashboard_header_logo_title();
+			}
+			?>
 		</div>
-
+		
+		<div class="awesome-header-center">
+			<div class="awesome-toggle-button">
+			<span><?php echo esc_html__('Full Screen: ', 'awesome-dokan'); ?></span> <label class="awesome-toggle-switch"><input type="checkbox" checked><span class="awesome-toggle-slider round"></span></label>
+			</div>
+		</div>
+		
 		<div class="awesome-header-right">
 			<?php
-			$sidebar_hide_show = isset( $options["sidebar_hide_show"] ) ? $options["sidebar_hide_show"] : '';
-			if( $sidebar_hide_show == 'on' ){
+			if( $sidebar_hide_show == 'on' && $dashboard_theme == 'theme_one' ){
 			?>
-				<a href="#" class="awesome-navigation-toggle-button icon-btn tips" data-original-title="Hide/Show the sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
+				<a href="#" class="awesome-navigation-toggle-button awesome-desktop-navigation icon-btn tips" data-original-title="Hide/Show the sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
 			<?php } ?>
 			
 			<?php
@@ -198,9 +184,123 @@ function awesome_dokan_dashboard_wrap_start(){
 	<?php
 }
 
+/**
+ * Add logo and title to the Dokan dashboard sidebar (Theme Two)
+ * Hooked into 'dokan_dashboard_sidebar_start'
+ */
+add_action('dokan_dashboard_sidebar_start', 'awesome_dokan_add_logo_title_dashboard_sidebar_start', 1);
+function awesome_dokan_add_logo_title_dashboard_sidebar_start(){
+	echo '<div class="awesome-header-logo-title">';
+	awesome_dokan_dashboard_header_logo_title();
+	echo '</div>';
+}
+
+/**
+ * Add wrapper and custom styles to the Dokan dashboard (Theme One)
+ * Hooked into 'dokan_dashboard_wrap_start'
+ */
+add_action('dokan_dashboard_wrap_start', 'awesome_dokan_dashboard_wrap_start');
+function awesome_dokan_dashboard_wrap_start(){
+	$options = get_option( 'awesome_dokan_options' );
+	$dashboard_theme = isset( $options['dashboard_theme'] ) ? $options['dashboard_theme'] : 'theme_one';
+	
+	$styles = get_option( 'awesome_dokan_styles' );
+	$header_bg_color = isset( $styles['header_bg_color'] ) ? $styles['header_bg_color'] : '';
+	$header_font_color = isset( $styles['header_font_color'] ) ? $styles['header_font_color'] : '';
+	$sidebar_bg_color = isset( $styles['sidebar_bg_color'] ) ? $styles['sidebar_bg_color'] : '';
+	$sidebar_font_active_bg_color = isset( $styles['sidebar_font_active_bg_color'] ) ? $styles['sidebar_font_active_bg_color'] : '';
+	$sidebar_font_color = isset( $styles['sidebar_font_color'] ) ? $styles['sidebar_font_color'] : '';
+	$sidebar_font_active_color = isset( $styles['sidebar_font_active_color'] ) ? $styles['sidebar_font_active_color'] : '';
+	$content_bg_color = isset( $styles['content_bg_color'] ) ? $styles['content_bg_color'] : '';
+	?>
+	<style>
+		:root {
+			<?php
+			if(!empty($header_bg_color)){
+				echo esc_attr('--awesome-header-background-color: '.$header_bg_color.';');
+			}
+			if(!empty($header_font_color)){
+				echo esc_attr('--awesome-header-font-color: '.$header_font_color.';');
+			}
+			if(!empty($sidebar_bg_color)){
+				echo esc_attr('--awesome-sidebar-background-color: '.$sidebar_bg_color.';');
+			}
+			if(!empty($sidebar_font_active_bg_color)){
+				echo esc_attr('--awesome-sidebar-font-background-color: '.$sidebar_font_active_bg_color.';');
+			}
+			if(!empty($sidebar_font_color)){
+				echo esc_attr('--awesome-sidebar-font-color: '.$sidebar_font_color.';');
+			}
+			if(!empty($sidebar_font_active_color)){
+				echo esc_attr('--awesome-sidebar-font-active-color: '.$sidebar_font_active_color.';');
+			}
+			if(!empty($content_bg_color)){
+				echo esc_attr('--awesome-content-background-color: '.$content_bg_color.';');
+			}
+			?>
+		}
+		/*If theme_two*/
+		<?php if( $dashboard_theme == 'theme_two' ): ?>
+		@media (min-width: 768px) {
+			.awesome-dokan-wrapper .dokan-dashboard-content {
+				position: relative
+			}
+			.awesome-dokan-wrapper {
+				position: unset;
+				padding-top: 0;
+			}
+			.dokan-dashboard .awesome-dokan-wrapper .dokan-dashboard-content article {
+				margin-top: 75px;
+			}
+			.dokan-dashboard-wrap{
+				position: relative
+			}
+			.dokan-dash-sidebar {
+				z-index: 2
+			}
+			.awesome-dokan-header {
+				border-radius: 0
+			}
+		}
+		<?php endif; ?>
+	</style>
+	<div class="awesome-dokan-wrapper <?php echo esc_attr($dashboard_theme); ?> awesome-dokan-fullscreen-mode-" id="awesome_dokan_wrapper">
+	<?php 
+	if( $dashboard_theme == 'theme_one' ){
+		awesome_dokan_dashboard_header();	
+	}
+	?>
+<?php
+}
+
+/**
+ * Add header inside dashboard content for Theme Two
+ * Hooked into 'dokan_dashboard_content_inside_before'
+ */
+add_action('dokan_dashboard_content_before', 'awesome_dokan_add_header_inside_dashboard_content_before', 1);
+function awesome_dokan_add_header_inside_dashboard_content_before(){
+	$options = get_option( 'awesome_dokan_options' );
+	$dashboard_theme = isset( $options['dashboard_theme'] ) ? $options['dashboard_theme'] : 'theme_one';
+	
+	if( $dashboard_theme == 'theme_two' ){
+		awesome_dokan_dashboard_header();
+		?>
+		<script>
+			jQuery(document).ready(function(){
+				jQuery(".dokan-dashboard-content").prepend(jQuery('.awesome-dokan-header'));
+			});
+		</script>
+		<?php
+	}
+}
+
+/**
+ * Add wrapper end
+ * Hooked into 'dokan_dashboard_wrap_end'
+ */
 add_action('dokan_dashboard_wrap_end', 'awesome_dokan_dashboard_wrap_end');
 function awesome_dokan_dashboard_wrap_end(){
 	?>
-</div>
+	</div>
 <?php
 }

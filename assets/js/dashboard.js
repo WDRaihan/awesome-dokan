@@ -11,7 +11,7 @@
 			jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar').slideToggle();
 		});
 		//Toggle dashboard menu on desktop
-		jQuery('.awesome-header-right .awesome-navigation-toggle-button').on('click', function(e){
+		jQuery('.awesome-navigation-toggle-button.awesome-desktop-navigation').on('click', function(e){
 			e.preventDefault();
 			jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar').toggle();
 			jQuery('.dokan-dashboard .awesome-dokan-wrapper .dokan-dashboard-content').toggleClass('padding-left-15');

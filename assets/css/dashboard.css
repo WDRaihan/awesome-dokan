@@ -23,14 +23,15 @@
 	background: var(--awesome-header-background-color, var(--awesome-default-background-color));
 	flex-wrap: wrap;
 	gap: 15px;
-	box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.49);
-	-webkit-box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.49);
-	-moz-box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.49);
+	box-shadow: 0px 7px 14px -10px rgba(0, 0, 0, 0.49);
+	-webkit-box-shadow: 0px 7px 14px -10px rgba(0, 0, 0, 0.49);
+	-moz-box-shadow: 0px 7px 14px -10px rgba(0, 0, 0, 0.49);
 	margin: 0;
 	position: absolute;
 	width: 100%;
 	z-index: 2;
 	top: 0;
+	left: 0;
 	flex-direction: row;
 	align-content: space-between;
 	align-items: stretch;
@@ -40,8 +41,28 @@
 	max-height: 76px;
 }
 
+.dokan-dashboard .awesome-dokan-wrapper .awesome-header-logo-title {
+	padding: 18px 5px 25px 18px;
+	display: flex;
+	column-gap: 12px;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+/*	border-bottom: 0.5px solid var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color))*/
+}
+
+.dokan-dashboard .awesome-dokan-wrapper.theme_one .dokan-dash-sidebar .awesome-header-logo-title {
+	display: none
+}
+
 .awesome-dokan-fullscreen-mode .awesome-dokan-header {
 	position: fixed;
+	z-index: 99999;
+	top: 0
+}
+
+.dokan-dashboard .awesome-dokan-wrapper.awesome-dokan-fullscreen-mode .dokan-dash-sidebar {
+    margin-top: 75px;
 }
 
 .dokan-dashboard #awesome_dokan_wrapper.awesome-dokan-fullscreen-mode .dokan-dashboard-wrap {
@@ -59,32 +80,46 @@
 	gap: 12px;
 }
 
-a.awesome-dashboard-logo {
+.awesome-dokan-wrapper a.awesome-dashboard-logo {
 	text-decoration: none !important;
 	line-height: 0;
 	width: 36px;
 	height: 36px;
 }
 
-.awesome-dashboard-logo i {
+.awesome-dokan-wrapper .awesome-dashboard-logo i {
 	color: var(--awesome-header-font-color, var(--awesome-default-font-color));
 	text-decoration: none;
 	font-size: 34px;
 	line-height: 37px;
 }
 
-.awesome-dashboard-logo img {
+.awesome-dokan-wrapper .awesome-dashboard-logo img {
 	border-radius: 4px;
 	max-width: 36px;
 }
 
-.awesome-dokan-header .awesome-header-left h3.awesome-dokan-header-title {
+.awesome-dokan-wrapper .awesome-dokan-header-title {
 	font-size: 17px !important;
 	font-weight: 500 !important;
 	color: var(--awesome-header-font-color, var(--awesome-default-font-color)) !important;
-	line-height: 20px !important;
+	line-height: 21px !important;
 	display: inline-block;
 	margin: 0 !important;
+}
+
+.awesome-dokan-wrapper .awesome-dokan-header-title span {
+	font-size: 15px;
+	font-weight: normal;
+	font-style: italic;
+}
+
+.awesome-dokan-wrapper.theme_two .awesome-dokan-header-title span {
+	display: block
+}
+
+.awesome-dokan-wrapper .dokan-dash-sidebar .awesome-dokan-header-title {
+	color: var(--awesome-sidebar-font-color, var(--awesome-default-sidebar-font-color)) !important;
 }
 
 .awesome-dokan-header .awesome-header-right {
@@ -98,7 +133,6 @@ a.awesome-dashboard-logo {
 	padding: 0;
 	margin: 0;
 	border-radius: 50%;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 	color: var(--awesome-header-font-color, var(--awesome-default-font-color)) !important;
 	text-decoration: none;
 	transition: background 0.2s ease;
@@ -144,13 +178,13 @@ a.awesome-dashboard-logo {
 	border: none;
 	cursor: pointer;
 	gap: 6px;
-
 }
 
 .awesome-user-avatar img {
 	border-radius: 50%;
 	width: 36px;
 	height: 36px;
+	box-shadow: 0 0px 1px rgb(0 0 0 / 87%);
 }
 
 .awesome-avatar-dropdown {
@@ -175,7 +209,7 @@ a.awesome-dashboard-logo {
 .awesome-avatar-dropdown a {
 	display: block;
 	padding: 6px 16px;
-	color: var(--awesome-header-font-color, var(--awesome-default-font-color));
+	color: var(--awesome-header-font-color, var(--awesome-default-font-color)) !important;
 	text-decoration: none;
 	font-size: 14px;
 	text-decoration: none !important
@@ -205,10 +239,12 @@ a.awesome-dashboard-logo {
 	background: var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) !important;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
+
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover:not(.active).has-submenu:after {
-    border-color: transparent var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) transparent transparent;
-    border-left-color: var(--awesome-sidebar-background-color, var(--awesome-default-background-color));
+	border-color: transparent var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) transparent transparent;
+	border-left-color: var(--awesome-sidebar-background-color, var(--awesome-default-background-color));
 }
+
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dashboard-content {
 	background: var(--awesome-content-background-color, var(--awesome-default-content-background-color));
 	padding-top: 20px !important;
@@ -216,9 +252,13 @@ a.awesome-dashboard-logo {
 	padding-bottom: 15px !important
 }
 
+.dokan-dashboard .awesome-dokan-wrapper.theme_two .dokan-dashboard-content {
+	overflow: unset
+}
+
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active:after {
-    border-color: transparent var(--awesome-content-background-color, var(--awesome-default-content-background-color)) transparent transparent;
-    border-left-color: var(--awesome-content-background-color, var(--awesome-default-content-background-color));
+	border-color: transparent var(--awesome-content-background-color, var(--awesome-default-content-background-color)) transparent transparent;
+	border-left-color: var(--awesome-content-background-color, var(--awesome-default-content-background-color));
 }
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar {
@@ -267,7 +307,7 @@ a.awesome-navigation-toggle-button:hover i {
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover {
-    background: var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color));
+	background: var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color));
 }
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li a,
@@ -284,11 +324,91 @@ a.awesome-navigation-toggle-button:hover i {
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li:hover:before,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li.current:before {
-    border-color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-color));
+	border-color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-color));
 }
+
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active ul.navigation-submenu {
-	    border-bottom: 0.5px solid var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color));
+	border-bottom: 0.5px solid var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color));
 }
+
+/*.dokan-layout .dokan-btn {
+    border-color: var(--dokan-button-border-color, #7047EB) !important;
+    background-color: var(--dokan-button-background-color, #7047EB) !important;
+    color: var(--dokan-button-text-color, #ffffff) !important;
+    --tw-shadow: 0 0 #0000 !important;
+    --tw-shadow-colored: 0 0 #0000 !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+    --tw-ring-color: var(--dokan-button-border-color, #7047EB) !important;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke !important;
+    transition-duration: 200ms !important;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}*/
+
+/*Awesome toggle button*/
+.awesome-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 22px;
+}
+
+.awesome-toggle-switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.awesome-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.awesome-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.awesome-toggle-switch input:checked + .awesome-toggle-slider {
+  background-color: #2196F3;
+}
+
+.awesome-toggle-switch input:focus + .awesome-toggle-slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.awesome-toggle-switch input:checked + .awesome-toggle-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.awesome-toggle-slider.round {
+  border-radius: 34px;
+}
+
+.awesome-toggle-slider.round:before {
+  border-radius: 50%;
+}
+
+.awesome-header-center {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 767px) {
 	.awesome-header-right {
 		gap: 25px;
@@ -302,9 +422,14 @@ a.awesome-navigation-toggle-button:hover i {
 		padding-left: 15px;
 	}
 
-	.awesome-dashboard-logo,
-	.awesome-dokan-header .awesome-header-left h3.awesome-dokan-header-title {
+	.awesome-dokan-wrapper .awesome-dashboard-logo,
+	.awesome-dokan-wrapper .awesome-dokan-header-title {
 		display: none
+	}
+
+	.awesome-dokan-wrapper .dokan-dash-sidebar .awesome-dashboard-logo,
+	.awesome-dokan-wrapper .dokan-dash-sidebar .awesome-dokan-header-title {
+		display: block
 	}
 
 	.awesome-header-left .awesome-navigation-toggle {
@@ -361,5 +486,17 @@ a.awesome-navigation-toggle-button:hover i {
 	.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li {
 		display: block;
 		border-right: 0;
+	}
+
+	a.awesome-navigation-toggle-button.awesome-desktop-navigation.icon-btn {
+		display: none
+	}
+	
+	.dokan-dashboard .awesome-dokan-wrapper.theme_one .dokan-dash-sidebar .awesome-header-logo-title {
+		display: flex
+	}
+
+	.dokan-dashboard .awesome-dokan-wrapper.awesome-dokan-fullscreen-mode .dokan-dash-sidebar {
+		margin-top: 0;
 	}
 }

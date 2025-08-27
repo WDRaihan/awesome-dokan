@@ -93,6 +93,14 @@ class Awesome_Dokan_Settings {
         );
 
         add_settings_field(
+            'dashboard_theme',
+            __( 'Select Dashboard Theme', 'awesome-dokan' ),
+            [ $this, 'render_dashboard_theme_field' ],
+            'awesome_dokan_settings_group',
+            'awesome_dokan_general_section',
+        );
+
+        add_settings_field(
             'dashboard_greeting',
             __( 'Custom Greeting Text', 'awesome-dokan' ),
             [ $this, 'render_greeting_field' ],
@@ -242,6 +250,20 @@ class Awesome_Dokan_Settings {
             <input type="checkbox" name="awesome_dokan_options[enable_new_design]" id="enable_new_design" value="on" <?php checked( $checked, 'on' ); ?>>
             <?php echo '<span class="description">'.esc_html__( 'Check this box to replace the default Dokan dashboard with the new design.', 'awesome-dokan' ).'</span>'; ?>
         </label>
+        <?php
+    }
+
+	public function render_dashboard_theme_field() {
+        $options = get_option( 'awesome_dokan_options' );
+        $checked = isset( $options['dashboard_theme'] ) ? $options['dashboard_theme'] : 'theme_one';
+        ?>
+        <label for="dashboard_theme_one">
+            <input type="radio" name="awesome_dokan_options[dashboard_theme]" id="dashboard_theme_one" value="theme_one" <?php checked( $checked, 'theme_one' ); ?>> <?php echo esc_html__('Theme One','awesome-dokan'); ?>
+        </label><br>
+        <label for="dashboard_theme_two">
+            <input type="radio" name="awesome_dokan_options[dashboard_theme]" id="dashboard_theme_two" value="theme_two" <?php checked( $checked, 'theme_two' ); ?>> <?php echo esc_html__('Theme Two','awesome-dokan'); ?>
+        </label>
+        <p><?php echo esc_html__('Select a Visual Style for the Dashboard.','awesome-dokan'); ?></p>
         <?php
     }
 
