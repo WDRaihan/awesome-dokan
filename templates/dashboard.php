@@ -105,8 +105,16 @@ function awesome_dokan_dashboard_header(){
 		</div>
 		
 		<div class="awesome-header-center">
+			
 			<div class="awesome-toggle-button">
-			<span><?php echo esc_html__('Full Screen: ', 'awesome-dokan'); ?></span> <label class="awesome-toggle-switch"><input type="checkbox" checked><span class="awesome-toggle-slider round"></span></label>
+				<span class="awesome-fullscreen-toggle-title"><?php echo esc_html__('Full Screen: ', 'awesome-dokan'); ?></span>
+				<label class="awesome-toggle-switch">
+					<?php
+					$user_id = get_current_user_id();
+					$fullscreen = get_user_meta( $user_id, 'awesome_dokan_fullscreen', true );
+					?>
+					<input class="awesome-fullscreen-toggle-button" type="checkbox" value="on" <?php if($fullscreen == 'on'){ echo esc_attr('checked'); } ?> ><span class="awesome-toggle-slider round"></span>
+				</label>
 			</div>
 		</div>
 		
@@ -239,32 +247,12 @@ function awesome_dokan_dashboard_wrap_start(){
 			}
 			?>
 		}
-		/*If theme_two*/
-		<?php if( $dashboard_theme == 'theme_two' ): ?>
-		@media (min-width: 768px) {
-			.awesome-dokan-wrapper .dokan-dashboard-content {
-				position: relative
-			}
-			.awesome-dokan-wrapper {
-				position: unset;
-				padding-top: 0;
-			}
-			.dokan-dashboard .awesome-dokan-wrapper .dokan-dashboard-content article {
-				margin-top: 75px;
-			}
-			.dokan-dashboard-wrap{
-				position: relative
-			}
-			.dokan-dash-sidebar {
-				z-index: 2
-			}
-			.awesome-dokan-header {
-				border-radius: 0
-			}
-		}
-		<?php endif; ?>
 	</style>
-	<div class="awesome-dokan-wrapper <?php echo esc_attr($dashboard_theme); ?> awesome-dokan-fullscreen-mode-" id="awesome_dokan_wrapper">
+	<?php
+	$user_id = get_current_user_id();
+	$fullscreen = get_user_meta( $user_id, 'awesome_dokan_fullscreen', true );
+	?>
+	<div class="awesome-dokan-wrapper <?php echo esc_attr($dashboard_theme); ?> <?php if( $fullscreen == 'on' ){ echo esc_attr('awesome-dokan-fullscreen-mode'); } ?>" id="awesome_dokan_wrapper">
 	<?php 
 	if( $dashboard_theme == 'theme_one' ){
 		awesome_dokan_dashboard_header();	
@@ -303,4 +291,24 @@ function awesome_dokan_dashboard_wrap_end(){
 	?>
 	</div>
 <?php
+}
+
+/**
+ * Full screen
+ * Handle AJAX request
+ */
+add_action( 'wp_ajax_awesome_dokan_save_fullscreen_mode', 'awesome_dokan_save_fullscreen_mode' );
+function awesome_dokan_save_fullscreen_mode() {
+    check_ajax_referer( 'awesome_dokan_nonce', 'nonce' );
+
+    $user_id = get_current_user_id();
+    if ( $user_id ) {
+        $meta_value = isset($_POST['meta_value']) ? sanitize_text_field($_POST['meta_value']) : '';
+        update_user_meta( $user_id, 'awesome_dokan_fullscreen', $meta_value );
+        wp_send_json_success( 'Fullscreen mode saved.' );
+    }
+
+    wp_send_json_error( 'User not logged in' );
+	
+	die;
 }

@@ -21,8 +21,36 @@
 			e.preventDefault();
 		});
 		
+		//Avatar dropdown
 		jQuery('.awesome-user-avatar').on('click', function(){
 			jQuery('.awesome-avatar-dropdown').toggle();
+		});
+		
+		//Full screen
+		jQuery(document).on('click', '.awesome-fullscreen-toggle-button', function() {
+			let isChecked = jQuery(this).is(':checked');
+			
+			if( isChecked ){
+				jQuery('.awesome-dokan-wrapper').addClass('awesome-dokan-fullscreen-mode');
+			}else{
+				jQuery('.awesome-dokan-wrapper').removeClass('awesome-dokan-fullscreen-mode');
+			}
+			
+			let metaValue = isChecked ? 'on' : '';
+
+			jQuery.ajax({
+				url: awesome_dokan_obj.ajax_url,
+				type: 'POST',
+				data: {
+					action: 'awesome_dokan_save_fullscreen_mode',
+					meta_value: metaValue,
+					nonce: awesome_dokan_obj.nonce
+				},
+				success: function(response) {
+					console.log(response);
+				}
+			});
+
 		});
     });
 

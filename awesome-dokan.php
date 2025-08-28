@@ -105,6 +105,10 @@ final class Awesome_Dokan {
         if ( function_exists( 'dokan_is_seller_dashboard' ) && dokan_is_seller_dashboard() ) {
             wp_enqueue_style( 'awesome-dokan-style', AWESOME_DOKAN_ASSETS . '/css/dashboard.css', [], AWESOME_DOKAN_VERSION );
             wp_enqueue_script( 'awesome-dokan-script', AWESOME_DOKAN_ASSETS . '/js/dashboard.js', [ 'jquery' ], AWESOME_DOKAN_VERSION, true );
+			wp_localize_script( 'awesome-dokan-script', 'awesome_dokan_obj', [
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'awesome_dokan_nonce' ),
+			]);
         }
     }
 
