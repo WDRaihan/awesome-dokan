@@ -41,7 +41,7 @@ function awesome_dokan_dashboard_header_logo_title(){
 			$custom_logo_id = get_theme_mod('custom_logo');
 			$dashboard_logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
 
-		}elseif( $dashboard_logo == 'custom_logo' ){
+		}elseif( $dashboard_logo == 'custom_logo' && awesome_dokan_pro_is_active() ){
 			$dashboard_logo_url = apply_filters('awesome_dokan_custom_dashboard_logo','');
 
 		}else{
@@ -88,7 +88,7 @@ function awesome_dokan_dashboard_header(){
 			<?php
 			/*Sidebar nav toggle*/
 			if( $dashboard_theme == 'theme_two' ){
-				if( function_exists('awesome_dokan_sidebar_nav_toggle') ){
+				if( function_exists('awesome_dokan_sidebar_nav_toggle') && awesome_dokan_pro_is_active() ){
 					awesome_dokan_sidebar_nav_toggle();
 				}
 			}
@@ -104,7 +104,7 @@ function awesome_dokan_dashboard_header(){
 		<div class="awesome-header-center">
 			<?php 
 			/*Show full-screen button*/
-			if( function_exists('awesome_dokan_fullscreen_button') ){
+			if( function_exists('awesome_dokan_fullscreen_button') && awesome_dokan_pro_is_active() ){
 				awesome_dokan_fullscreen_button();
 			}
 			?>
@@ -114,7 +114,7 @@ function awesome_dokan_dashboard_header(){
 			<?php
 			/*sidebar nav toggle*/
 			if( $dashboard_theme == 'theme_one' ){
-				if( function_exists('awesome_dokan_sidebar_nav_toggle') ){
+				if( function_exists('awesome_dokan_sidebar_nav_toggle') && awesome_dokan_pro_is_active() ){
 					awesome_dokan_sidebar_nav_toggle();
 				}
 			}
@@ -122,7 +122,7 @@ function awesome_dokan_dashboard_header(){
 			
 			<?php
 			/*Add new product icon*/
-			if( function_exists('awesome_dokan_add_new_product_icon') ){
+			if( function_exists('awesome_dokan_add_new_product_icon') && awesome_dokan_pro_is_active() ){
 				awesome_dokan_add_new_product_icon();
 			}
 			?>

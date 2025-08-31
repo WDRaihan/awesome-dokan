@@ -147,5 +147,24 @@ function awesome_dokan() {
     return Awesome_Dokan::init();
 }
 
+/**
+ * Check if Awesome Dokan Pro is active and loaded
+ *
+ * @return bool
+ */
+function awesome_dokan_pro_is_active() {
+    // Load is_plugin_active() if not loaded
+    if ( ! function_exists( 'is_plugin_active' ) ) {
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+
+    // Check by plugin file and by a known class from Awesome Dokan Pro
+    if ( is_plugin_active( 'awesome-dokan-pro/awesome-dokan-pro.php' ) && class_exists( 'Awesome_Dokan_Pro' ) ) {
+        return true;
+    }
+
+    return false;
+}
+
 // Kick-off the plugin
 awesome_dokan();

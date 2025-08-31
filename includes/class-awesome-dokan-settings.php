@@ -283,14 +283,21 @@ class Awesome_Dokan_Settings {
         <select name="awesome_dokan_options[dashboard_logo]">
             <option value="site_icon" <?php selected( $value, 'site_icon' ); ?>><?php echo esc_html__( 'Site Icon', 'awesome-dokan' ); ?></option>
             <option value="main_logo" <?php selected( $value, 'main_logo' ); ?>><?php echo esc_html__( 'Main Logo', 'awesome-dokan' ); ?></option>
-            <option value="custom_logo" <?php selected( $value, 'custom_logo' ); ?> disabled><?php echo esc_html__( 'Custom Logo', 'awesome-dokan' ); ?> - (Pro)</option>
+            <?php
+			if( function_exists('awesome_dokan_dashboard_logo_source') && awesome_dokan_pro_is_active() ){
+				awesome_dokan_dashboard_logo_source();
+			}else{
+				echo '<option disabled> '. esc_html__( 'Custom Logo', 'awesome-dokan' ) .' - (Pro)</option>';
+			}
+			?>
+            
             <option value="none" <?php selected( $value, 'none' ); ?>><?php echo esc_html__( 'None', 'awesome-dokan' ); ?></option>
         </select>
         <?php
     }
 
     public function render_custom_logo_field() {
-		if( function_exists('awesome_dokan_render_custom_logo_field') ){
+		if( function_exists('awesome_dokan_render_custom_logo_field') && awesome_dokan_pro_is_active() ){
 			awesome_dokan_render_custom_logo_field();
 			return;
 		}
