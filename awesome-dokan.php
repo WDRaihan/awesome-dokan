@@ -87,7 +87,7 @@ final class Awesome_Dokan {
     public function init_plugin() {
         // Get our setting
         $options = get_option( 'awesome_dokan_options' );
-        $is_enabled = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : '';
+        $is_enabled = isset( $options['enable_new_dashboard_design'] ) ? $options['enable_new_dashboard_design'] : '';
 
         // Only load the new design if the setting is checked
         if ( 'on' == $is_enabled ) {

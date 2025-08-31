@@ -75,7 +75,7 @@ class Awesome_Dokan_Settings {
      */
     public function settings_init() {
         register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_options', array( 'sanitize_callback' => [$this, 'awesome_dokan_sanitize_options'], ) );
-        register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_styles' );
+        register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_styles', array( 'sanitize_callback' => [$this, 'awesome_dokan_sanitize_options'], ) );
 
         add_settings_section(
             'awesome_dokan_general_section',
@@ -85,7 +85,7 @@ class Awesome_Dokan_Settings {
         );
 
         add_settings_field(
-            'enable_new_design',
+            'enable_new_dashboard_design',
             __( 'Enable New Dashboard Design', 'awesome-dokan' ),
             [ $this, 'render_enable_design_field' ],
             'awesome_dokan_settings_group',
@@ -244,10 +244,10 @@ class Awesome_Dokan_Settings {
 
 	public function render_enable_design_field() {
         $options = get_option( 'awesome_dokan_options' );
-        $checked = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : '';
+        $checked = isset( $options['enable_new_dashboard_design'] ) ? $options['enable_new_dashboard_design'] : '';
         ?>
-        <label for="enable_new_design">
-            <input type="checkbox" name="awesome_dokan_options[enable_new_design]" id="enable_new_design" value="on" <?php checked( $checked, 'on' ); ?>>
+        <label for="enable_new_dashboard_design">
+            <input type="checkbox" name="awesome_dokan_options[enable_new_dashboard_design]" id="enable_new_dashboard_design" value="on" <?php checked( $checked, 'on' ); ?>>
             <?php echo '<span class="description">'.esc_html__( 'Check this box to replace the default Dokan dashboard with the new design.', 'awesome-dokan' ).'</span>'; ?>
         </label>
         <?php
@@ -270,8 +270,10 @@ class Awesome_Dokan_Settings {
     public function render_greeting_field() {
         $options = get_option( 'awesome_dokan_options' );
         $value = isset( $options['dashboard_greeting'] ) ? $options['dashboard_greeting'] : '';
-        echo '<input type="text" name="awesome_dokan_options[dashboard_greeting]" value="' . esc_attr( $value ) . '" class="regular-text" placeholder="e.g., Hi, {user}">';
-		echo '<p class="description">'.esc_html__( 'To display the username, use this shortcode: {user}. Leave blank to show time-based greeting.', 'awesome-dokan' ).'</p>';
+		?>
+        <input type="text" name="awesome_dokan_options[dashboard_greeting]" value="<?php echo esc_attr( $value ); ?>" class="regular-text" placeholder="e.g., Hi, {user}">
+		<p class="description"><?php echo esc_html__( 'To display the username, use this shortcode: {user}. Leave blank to show time-based greeting.', 'awesome-dokan' ); ?></p>
+   		<?php
     }
 
     public function render_logo_field() {
@@ -281,24 +283,20 @@ class Awesome_Dokan_Settings {
         <select name="awesome_dokan_options[dashboard_logo]">
             <option value="site_icon" <?php selected( $value, 'site_icon' ); ?>><?php echo esc_html__( 'Site Icon', 'awesome-dokan' ); ?></option>
             <option value="main_logo" <?php selected( $value, 'main_logo' ); ?>><?php echo esc_html__( 'Main Logo', 'awesome-dokan' ); ?></option>
-            <option value="custom_logo" <?php selected( $value, 'custom_logo' ); ?>><?php echo esc_html__( 'Custom Logo', 'awesome-dokan' ); ?></option>
-            <option value="dashboard_icon" <?php selected( $value, 'dashboard_icon' ); ?>><?php echo esc_html__( 'Dashboard Icon', 'awesome-dokan' ); ?></option>
+            <option value="custom_logo" <?php selected( $value, 'custom_logo' ); ?> disabled><?php echo esc_html__( 'Custom Logo', 'awesome-dokan' ); ?> - (Pro)</option>
             <option value="none" <?php selected( $value, 'none' ); ?>><?php echo esc_html__( 'None', 'awesome-dokan' ); ?></option>
         </select>
         <?php
     }
 
     public function render_custom_logo_field() {
-        $options = get_option( 'awesome_dokan_options' );
-        $logo_url = isset( $options['custom_logo'] ) ? $options['custom_logo'] : '';
+		if( function_exists('awesome_dokan_render_custom_logo_field') ){
+			awesome_dokan_render_custom_logo_field();
+			return;
+		}
         ?>
-        <input type="text" name="awesome_dokan_options[custom_logo]" id="custom_logo" value="<?php echo esc_url($logo_url); ?>" class="regular-text">
-        <button type="button" class="button" id="upload_custom_logo"><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button>
-        <div id="custom_logo_preview" style="margin-top:10px;">
-            <?php if ( $logo_url ) : ?>
-                <img src="<?php echo esc_url($logo_url); ?>" style="max-height: 50px;" />
-            <?php endif; ?>
-        </div>
+        <input type="text" value="" class="regular-text" disabled>
+        <button type="button" class="button" disabled><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button> <span class="awesome-dokan-pro-badge">(Pro)</span>
         <?php
     }
 

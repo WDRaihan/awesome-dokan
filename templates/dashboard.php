@@ -42,7 +42,7 @@ function awesome_dokan_dashboard_header_logo_title(){
 			$dashboard_logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
 
 		}elseif( $dashboard_logo == 'custom_logo' ){
-			$dashboard_logo_url = isset( $options['custom_logo'] ) ? $options['custom_logo'] : '';
+			$dashboard_logo_url = apply_filters('awesome_dokan_custom_dashboard_logo','');
 
 		}else{
 			$dashboard_logo_url = '';
@@ -53,11 +53,6 @@ function awesome_dokan_dashboard_header_logo_title(){
 		if($dashboard_logo_url != ''){
 			?>
 			<img src="<?php echo esc_url($dashboard_logo_url); ?>" alt="Icon" />
-			<?php
-		}
-		if( $dashboard_logo == 'dashboard_icon' ){
-			?>
-			<i class="fas fa-tachometer-alt"></i>
 			<?php
 		}
 		?>
@@ -85,17 +80,19 @@ function awesome_dokan_dashboard_header_logo_title(){
 //Awesome dashboard header
 function awesome_dokan_dashboard_header(){
 	$options = get_option( 'awesome_dokan_options' );
-	$dashboard_theme = isset( $options['dashboard_theme'] ) ? $options['dashboard_theme'] : 'theme_one';
-	$sidebar_hide_show = isset( $options["sidebar_hide_show"] ) ? $options["sidebar_hide_show"] : '';
+	$dashboard_theme = apply_filters('awesome_dokan_dashboard_theme', 'theme_one');
 	?>
 	<div class="awesome-dokan-header">
 		<div class="awesome-header-left">
 			<div class="awesome-navigation-toggle"><a href="#" class="awesome-navigation-toggle-button"><i class="fa fa-bars" aria-hidden="true"></i></a></div>
 			<?php
-			if( $sidebar_hide_show == 'on' && $dashboard_theme == 'theme_two' ){
+			/*Sidebar nav toggle*/
+			if( $dashboard_theme == 'theme_two' ){
+				if( function_exists('awesome_dokan_sidebar_nav_toggle') ){
+					awesome_dokan_sidebar_nav_toggle();
+				}
+			}
 			?>
-				<a href="#" class="awesome-navigation-toggle-button awesome-desktop-navigation icon-btn tips" data-original-title="Hide/Show the sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
-			<?php } ?>
 			
 			<?php
 			if($dashboard_theme == 'theme_one'){
@@ -105,47 +102,28 @@ function awesome_dokan_dashboard_header(){
 		</div>
 		
 		<div class="awesome-header-center">
-			
-			<div class="awesome-toggle-button">
-				<span class="awesome-fullscreen-toggle-title"><?php echo esc_html__('Full Screen: ', 'awesome-dokan'); ?></span>
-				<label class="awesome-toggle-switch">
-					<?php
-					$user_id = get_current_user_id();
-					$fullscreen = get_user_meta( $user_id, 'awesome_dokan_fullscreen', true );
-					?>
-					<input class="awesome-fullscreen-toggle-button" type="checkbox" value="on" <?php if($fullscreen == 'on'){ echo esc_attr('checked'); } ?> ><span class="awesome-toggle-slider round"></span>
-				</label>
-			</div>
+			<?php 
+			/*Show full-screen button*/
+			if( function_exists('awesome_dokan_fullscreen_button') ){
+				awesome_dokan_fullscreen_button();
+			}
+			?>
 		</div>
 		
 		<div class="awesome-header-right">
 			<?php
-			if( $sidebar_hide_show == 'on' && $dashboard_theme == 'theme_one' ){
+			/*sidebar nav toggle*/
+			if( $dashboard_theme == 'theme_one' ){
+				if( function_exists('awesome_dokan_sidebar_nav_toggle') ){
+					awesome_dokan_sidebar_nav_toggle();
+				}
+			}
 			?>
-				<a href="#" class="awesome-navigation-toggle-button awesome-desktop-navigation icon-btn tips" data-original-title="Hide/Show the sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
-			<?php } ?>
 			
 			<?php
-			$add_product = isset( $options["enable_icon_add_product"] ) ? $options["enable_icon_add_product"] : '';
-	
-			if( $add_product == 'on' && dokan_is_seller_enabled( dokan_get_current_user_id() ) ) {
-			
-				$one_step_product_create = 'on' === dokan_get_option( 'one_step_product_create', 'dokan_selling', 'on' );
-				$disable_product_popup   = $one_step_product_create || 'on' === dokan_get_option( 'disable_product_popup', 'dokan_selling', 'off' );
-				$new_product_url = $one_step_product_create ? dokan_edit_product_url( 0, true ) : add_query_arg(
-					[
-						'_dokan_add_product_nonce' => wp_create_nonce( 'dokan_add_product_nonce' ),
-					],
-					dokan_get_navigation_url( 'new-product' )
-				);
-			
-				if ( current_user_can( 'dokan_add_product' ) ) {
-				?>
-				<a href="<?php echo esc_url( $new_product_url ); ?>" class="icon-btn tips <?php echo $disable_product_popup ? '' : esc_attr('dokan-add-new-product'); ?>" data-original-title="Add New Product">
-					<i class="fas fa-plus"></i>
-				</a>
-				<?php
-				}
+			/*Add new product icon*/
+			if( function_exists('awesome_dokan_add_new_product_icon') ){
+				awesome_dokan_add_new_product_icon();
 			}
 			?>
 			<?php 
@@ -207,79 +185,22 @@ function awesome_dokan_add_logo_title_dashboard_sidebar_start(){
  * Add wrapper and custom styles to the Dokan dashboard (Theme One)
  * Hooked into 'dokan_dashboard_wrap_start'
  */
-add_action('dokan_dashboard_wrap_start', 'awesome_dokan_dashboard_wrap_start');
+add_action('dokan_dashboard_wrap_start', 'awesome_dokan_dashboard_wrap_start', 1);
 function awesome_dokan_dashboard_wrap_start(){
 	$options = get_option( 'awesome_dokan_options' );
-	$dashboard_theme = isset( $options['dashboard_theme'] ) ? $options['dashboard_theme'] : 'theme_one';
+	$dashboard_theme = apply_filters('awesome_dokan_dashboard_theme', 'theme_one');
 	
-	$styles = get_option( 'awesome_dokan_styles' );
-	$header_bg_color = isset( $styles['header_bg_color'] ) ? $styles['header_bg_color'] : '';
-	$header_font_color = isset( $styles['header_font_color'] ) ? $styles['header_font_color'] : '';
-	$sidebar_bg_color = isset( $styles['sidebar_bg_color'] ) ? $styles['sidebar_bg_color'] : '';
-	$sidebar_font_active_bg_color = isset( $styles['sidebar_font_active_bg_color'] ) ? $styles['sidebar_font_active_bg_color'] : '';
-	$sidebar_font_color = isset( $styles['sidebar_font_color'] ) ? $styles['sidebar_font_color'] : '';
-	$sidebar_font_active_color = isset( $styles['sidebar_font_active_color'] ) ? $styles['sidebar_font_active_color'] : '';
-	$content_bg_color = isset( $styles['content_bg_color'] ) ? $styles['content_bg_color'] : '';
+	do_action('awesome_dokan_before_wrapper');
+	
+	$fullscreen = apply_filters('awesome_dokan_fullscreen','');
 	?>
-	<style>
-		:root {
-			<?php
-			if(!empty($header_bg_color)){
-				echo esc_attr('--awesome-header-background-color: '.$header_bg_color.';');
-			}
-			if(!empty($header_font_color)){
-				echo esc_attr('--awesome-header-font-color: '.$header_font_color.';');
-			}
-			if(!empty($sidebar_bg_color)){
-				echo esc_attr('--awesome-sidebar-background-color: '.$sidebar_bg_color.';');
-			}
-			if(!empty($sidebar_font_active_bg_color)){
-				echo esc_attr('--awesome-sidebar-font-background-color: '.$sidebar_font_active_bg_color.';');
-			}
-			if(!empty($sidebar_font_color)){
-				echo esc_attr('--awesome-sidebar-font-color: '.$sidebar_font_color.';');
-			}
-			if(!empty($sidebar_font_active_color)){
-				echo esc_attr('--awesome-sidebar-font-active-color: '.$sidebar_font_active_color.';');
-			}
-			if(!empty($content_bg_color)){
-				echo esc_attr('--awesome-content-background-color: '.$content_bg_color.';');
-			}
-			?>
-		}
-	</style>
-	<?php
-	$user_id = get_current_user_id();
-	$fullscreen = get_user_meta( $user_id, 'awesome_dokan_fullscreen', true );
-	?>
-	<div class="awesome-dokan-wrapper <?php echo esc_attr($dashboard_theme); ?> <?php if( $fullscreen == 'on' ){ echo esc_attr('awesome-dokan-fullscreen-mode'); } ?>" id="awesome_dokan_wrapper">
+	<div class="awesome-dokan-wrapper <?php echo esc_attr($dashboard_theme); ?> <?php echo esc_attr($fullscreen); ?>" id="awesome_dokan_wrapper">
 	<?php 
 	if( $dashboard_theme == 'theme_one' ){
 		awesome_dokan_dashboard_header();	
 	}
 	?>
 <?php
-}
-
-/**
- * Add header inside dashboard content for Theme Two
- * Hooked into 'dokan_dashboard_content_inside_before'
- */
-add_action('dokan_dashboard_content_before', 'awesome_dokan_add_header_inside_dashboard_content_before', 1);
-function awesome_dokan_add_header_inside_dashboard_content_before(){
-	$options = get_option( 'awesome_dokan_options' );
-	$dashboard_theme = isset( $options['dashboard_theme'] ) ? $options['dashboard_theme'] : 'theme_one';
-	
-	if( $dashboard_theme == 'theme_two' ){
-		awesome_dokan_dashboard_header();
-		?>
-		<script>
-			jQuery(document).ready(function(){
-				jQuery(".dokan-dashboard-content").prepend(jQuery('.awesome-dokan-header'));
-			});
-		</script>
-		<?php
-	}
 }
 
 /**
@@ -291,24 +212,4 @@ function awesome_dokan_dashboard_wrap_end(){
 	?>
 	</div>
 <?php
-}
-
-/**
- * Full screen
- * Handle AJAX request
- */
-add_action( 'wp_ajax_awesome_dokan_save_fullscreen_mode', 'awesome_dokan_save_fullscreen_mode' );
-function awesome_dokan_save_fullscreen_mode() {
-    check_ajax_referer( 'awesome_dokan_nonce', 'nonce' );
-
-    $user_id = get_current_user_id();
-    if ( $user_id ) {
-        $meta_value = isset($_POST['meta_value']) ? sanitize_text_field($_POST['meta_value']) : '';
-        update_user_meta( $user_id, 'awesome_dokan_fullscreen', $meta_value );
-        wp_send_json_success( 'Fullscreen mode saved.' );
-    }
-
-    wp_send_json_error( 'User not logged in' );
-	
-	die;
 }

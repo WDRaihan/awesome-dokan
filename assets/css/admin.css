@@ -82,6 +82,10 @@
 	margin: 0;
 }
 
+.awesome-dokan-pro-badge{
+	color: #ff1e1e
+}
+
 /* Responsive styles for larger screens */
 @media (min-width: 640px) {
 	.awesome-dokan-container {
