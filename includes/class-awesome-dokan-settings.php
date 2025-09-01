@@ -40,13 +40,13 @@ class Awesome_Dokan_Settings {
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'add_admin_menu' ] );
         add_action( 'admin_init', [ $this, 'settings_init' ] );
-        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_media_uploader' ] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
     }
 
     /**
      * Enqueue WordPress media uploader.
      */
-    public function enqueue_media_uploader() {
+    public function enqueue_admin_scripts() {
         $page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '';
 		if ( $page !== 'awesome-dokan' ) {
 			return;
@@ -62,11 +62,13 @@ class Awesome_Dokan_Settings {
      */
     public function add_admin_menu() {
         add_menu_page(
-            __( 'Awesome Dokan Settings', 'awesome-dokan' ),
+            __( 'Awesome Dokan', 'awesome-dokan' ),
             __( 'Awesome Dokan', 'awesome-dokan' ),
             'manage_options',
             'awesome-dokan',
-            [ $this, 'settings_page_html' ]
+            [ $this, 'settings_page_html' ],
+			'dashicons-smiley',
+			55.6
         );
     }
 
@@ -75,17 +77,17 @@ class Awesome_Dokan_Settings {
      */
     public function settings_init() {
         register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_options', array( 'sanitize_callback' => [$this, 'awesome_dokan_sanitize_options'], ) );
-        register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_styles' );
+        register_setting( 'awesome_dokan_settings_group', 'awesome_dokan_styles', array( 'sanitize_callback' => [$this, 'awesome_dokan_sanitize_options'], ) );
 
         add_settings_section(
             'awesome_dokan_general_section',
-            __( 'General Settings', 'awesome-dokan' ),
+            __( 'Dashboard Settings', 'awesome-dokan' ),
             '__return_false',
             'awesome_dokan_settings_group'
         );
 
         add_settings_field(
-            'enable_new_design',
+            'enable_new_dashboard_design',
             __( 'Enable New Dashboard Design', 'awesome-dokan' ),
             [ $this, 'render_enable_design_field' ],
             'awesome_dokan_settings_group',
@@ -139,8 +141,16 @@ class Awesome_Dokan_Settings {
             'awesome_dokan_settings_group',
             'awesome_dokan_general_section'
         );
+		
+		add_settings_field(
+            'add_new_product',
+            __( 'Show "Add New Product" Icon', 'awesome-dokan' ),
+            [ $this, 'render_add_new_product_field' ],
+            'awesome_dokan_settings_group',
+            'awesome_dokan_general_section'
+        );
 
-        $icons = [ 'add_product', 'visit_store', 'withdraw', 'notifications' ];
+        $icons = [ 'visit_store', 'withdraw', 'order_notification' ];
         foreach ( $icons as $icon ) {
             add_settings_field(
                 "enable_icon_{$icon}",
@@ -154,6 +164,14 @@ class Awesome_Dokan_Settings {
                 'awesome_dokan_general_section'
             );
         }
+		
+		add_settings_field(
+            'hide_nav_common_links',
+            __( 'Hide Default Nav Common Links', 'awesome-dokan' ),
+            [ $this, 'render_hide_nav_common_links_field' ],
+            'awesome_dokan_settings_group',
+            'awesome_dokan_general_section'
+        );
 		
 		add_settings_section(
             'awesome_dokan_theme_color_section',
@@ -244,10 +262,10 @@ class Awesome_Dokan_Settings {
 
 	public function render_enable_design_field() {
         $options = get_option( 'awesome_dokan_options' );
-        $checked = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : '';
+        $checked = isset( $options['enable_new_dashboard_design'] ) ? $options['enable_new_dashboard_design'] : '';
         ?>
-        <label for="enable_new_design">
-            <input type="checkbox" name="awesome_dokan_options[enable_new_design]" id="enable_new_design" value="on" <?php checked( $checked, 'on' ); ?>>
+        <label for="enable_new_dashboard_design">
+            <input type="checkbox" name="awesome_dokan_options[enable_new_dashboard_design]" id="enable_new_dashboard_design" value="on" <?php checked( $checked, 'on' ); ?>>
             <?php echo '<span class="description">'.esc_html__( 'Check this box to replace the default Dokan dashboard with the new design.', 'awesome-dokan' ).'</span>'; ?>
         </label>
         <?php
@@ -260,9 +278,17 @@ class Awesome_Dokan_Settings {
         <label for="dashboard_theme_one">
             <input type="radio" name="awesome_dokan_options[dashboard_theme]" id="dashboard_theme_one" value="theme_one" <?php checked( $checked, 'theme_one' ); ?>> <?php echo esc_html__('Theme One','awesome-dokan'); ?>
         </label><br>
-        <label for="dashboard_theme_two">
-            <input type="radio" name="awesome_dokan_options[dashboard_theme]" id="dashboard_theme_two" value="theme_two" <?php checked( $checked, 'theme_two' ); ?>> <?php echo esc_html__('Theme Two','awesome-dokan'); ?>
-        </label>
+        <?php 
+		if( function_exists('awesome_dokan_render_dashboard_theme_field') ){
+			awesome_dokan_render_dashboard_theme_field();
+		}else{
+			?>
+			<label>
+				<input type="radio" disabled> <?php echo esc_html__('Theme Two','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge">(Pro)</span>
+			</label>
+		<?php
+		}
+		?>
         <p><?php echo esc_html__('Select a Visual Style for the Dashboard.','awesome-dokan'); ?></p>
         <?php
     }
@@ -270,8 +296,10 @@ class Awesome_Dokan_Settings {
     public function render_greeting_field() {
         $options = get_option( 'awesome_dokan_options' );
         $value = isset( $options['dashboard_greeting'] ) ? $options['dashboard_greeting'] : '';
-        echo '<input type="text" name="awesome_dokan_options[dashboard_greeting]" value="' . esc_attr( $value ) . '" class="regular-text" placeholder="e.g., Hi, {user}">';
-		echo '<p class="description">'.esc_html__( 'To display the username, use this shortcode: {user}. Leave blank to show time-based greeting.', 'awesome-dokan' ).'</p>';
+		?>
+        <input type="text" name="awesome_dokan_options[dashboard_greeting]" value="<?php echo esc_attr( $value ); ?>" class="regular-text" placeholder="e.g., Hi, {user}">
+		<p class="description"><?php echo esc_html__( 'To display the username, use this shortcode: {user}. Leave blank to show time-based greeting.', 'awesome-dokan' ); ?></p>
+   		<?php
     }
 
     public function render_logo_field() {
@@ -281,41 +309,67 @@ class Awesome_Dokan_Settings {
         <select name="awesome_dokan_options[dashboard_logo]">
             <option value="site_icon" <?php selected( $value, 'site_icon' ); ?>><?php echo esc_html__( 'Site Icon', 'awesome-dokan' ); ?></option>
             <option value="main_logo" <?php selected( $value, 'main_logo' ); ?>><?php echo esc_html__( 'Main Logo', 'awesome-dokan' ); ?></option>
-            <option value="custom_logo" <?php selected( $value, 'custom_logo' ); ?>><?php echo esc_html__( 'Custom Logo', 'awesome-dokan' ); ?></option>
-            <option value="dashboard_icon" <?php selected( $value, 'dashboard_icon' ); ?>><?php echo esc_html__( 'Dashboard Icon', 'awesome-dokan' ); ?></option>
+            <?php
+			if( function_exists('awesome_dokan_dashboard_logo_source') && awesome_dokan_pro_is_active() ){
+				awesome_dokan_dashboard_logo_source();
+			}else{
+				echo '<option disabled> '. esc_html__( 'Custom Logo', 'awesome-dokan' ) .' - (Pro)</option>';
+			}
+			?>
             <option value="none" <?php selected( $value, 'none' ); ?>><?php echo esc_html__( 'None', 'awesome-dokan' ); ?></option>
         </select>
         <?php
     }
 
     public function render_custom_logo_field() {
-        $options = get_option( 'awesome_dokan_options' );
-        $logo_url = isset( $options['custom_logo'] ) ? $options['custom_logo'] : '';
+		if( function_exists('awesome_dokan_render_custom_logo_field') && awesome_dokan_pro_is_active() ){
+			awesome_dokan_render_custom_logo_field();
+			return;
+		}
         ?>
-        <input type="text" name="awesome_dokan_options[custom_logo]" id="custom_logo" value="<?php echo esc_url($logo_url); ?>" class="regular-text">
-        <button type="button" class="button" id="upload_custom_logo"><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button>
-        <div id="custom_logo_preview" style="margin-top:10px;">
-            <?php if ( $logo_url ) : ?>
-                <img src="<?php echo esc_url($logo_url); ?>" style="max-height: 50px;" />
-            <?php endif; ?>
-        </div>
+        <input type="text" value="" class="regular-text" disabled>
+        <button type="button" class="button" disabled><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button> <span class="awesome-dokan-pro-badge">(Pro)</span>
         <?php
     }
 
     public function render_logo_url_field() {
-        $options = get_option( 'awesome_dokan_options' );
-        $logo_url = isset( $options['logo_url'] ) ? esc_url( $options['logo_url'] ) : '';
+		if( function_exists('awesome_dokan_render_logo_url') && awesome_dokan_pro_is_active() ){
+			awesome_dokan_render_logo_url();
+			return;
+		}
         ?>
-        <input type="text" name="awesome_dokan_options[logo_url]" id="logo_url" value="<?php echo esc_url($logo_url); ?>" class="regular-text" placeholder="Enter logo URL">
+        <input type="text" class="regular-text" placeholder="Enter logo URL" disabled> <span class="awesome-dokan-pro-badge">(Pro)</span>
         <p class="description"><?php echo esc_html__('Default is set to home URL','awesome-dokan'); ?></p>
         <?php
     }
 
     public function render_sidebar_hide_show_field() {
-        $options = get_option( 'awesome_dokan_options' );
-        $checked = isset( $options['sidebar_hide_show'] ) ? $options['sidebar_hide_show'] : '';
+		if( function_exists('awesome_dokan_render_sidebar_hide_show_field') && awesome_dokan_pro_is_active() ){
+			awesome_dokan_render_sidebar_hide_show_field();
+			return;
+		}
         ?>
-        <label><input type="checkbox" name="awesome_dokan_options[sidebar_hide_show]" id="sidebar_hide_show" <?php echo checked( $checked, 'on', false ); ?> class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site','awesome-dokan'); ?></label>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge">(Pro)</span></label>
+        <?php
+    }
+
+    public function render_add_new_product_field() {
+		if( function_exists('awesome_dokan_render_add_new_product_field') && awesome_dokan_pro_is_active() ){
+			awesome_dokan_render_add_new_product_field();
+			return;
+		}
+        ?>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge">(Pro)</span></label>
+        <?php
+    }
+
+    public function render_hide_nav_common_links_field() {
+		if( function_exists('awesome_dokan_render_hide_nav_common_links_field') && awesome_dokan_pro_is_active() ){
+			awesome_dokan_render_hide_nav_common_links_field();
+			return;
+		}
+        ?>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Common links such as Visit Store, Edit Account, and Logout are located at the bottom of the sidebar navigation. (These links are available in the dashboard header).','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge">(Pro)</span></label>
         <?php
     }
 	
@@ -324,6 +378,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_theme_primary_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $theme_primary_color = isset( $styles['theme_primary_color'] ) ? $styles['theme_primary_color'] : '';
         ?>
@@ -334,6 +393,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_theme_secondary_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $theme_secondary_color = isset( $styles['theme_secondary_color'] ) ? $styles['theme_secondary_color'] : '';
         ?>
@@ -345,6 +409,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_header_bg_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $header_bg_color = isset( $styles['header_bg_color'] ) ? $styles['header_bg_color'] : '';
         ?>
@@ -355,6 +424,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_sidebar_bg_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $sidebar_bg_color = isset( $styles['sidebar_bg_color'] ) ? $styles['sidebar_bg_color'] : '';
         ?>
@@ -365,6 +439,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_content_bg_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $content_bg_color = isset( $styles['content_bg_color'] ) ? $styles['content_bg_color'] : '';
         ?>
@@ -375,6 +454,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_header_font_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $header_font_color = isset( $styles['header_font_color'] ) ? $styles['header_font_color'] : '';
         ?>
@@ -385,6 +469,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_sidebar_font_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $header_font_color = isset( $styles['sidebar_font_color'] ) ? $styles['sidebar_font_color'] : '';
         ?>
@@ -395,6 +484,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_sidebar_font_active_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $sidebar_font_active_color = isset( $styles['sidebar_font_active_color'] ) ? $styles['sidebar_font_active_color'] : '';
         ?>
@@ -405,6 +499,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_sidebar_font_active_bg_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $sidebar_font_active_bg_color = isset( $styles['sidebar_font_active_bg_color'] ) ? $styles['sidebar_font_active_bg_color'] : '';
         ?>
@@ -430,10 +529,10 @@ class Awesome_Dokan_Settings {
 					<div class="awesome-dokan-tabs-wrapper">
 						<ul class="awesome-dokan-tabs-nav">
 							<li>
-								<a href="#awesome-dokan-tab1" class="active">General Settings</a>
+								<a href="#awesome-dokan-tab1" class="active"><?php echo esc_html('General Settings', 'awesome-dokan'); ?></a>
 							</li>
 							<li>
-								<a href="#awesome-dokan-tab2">Styles</a>
+								<a href="#awesome-dokan-tab2"><?php echo esc_html('Styles', 'awesome-dokan'); ?></a>
 							</li>
 						</ul>
 					</div>
@@ -487,6 +586,16 @@ class Awesome_Dokan_Settings {
 		}
 
 		return $output;
+	}
+	
+	//Color placeholder field
+	public function awesome_dokan_color_placeholder(){
+		?>
+		<label>
+            <input type="text" class="awesome-dokan-color-field">
+        </label>
+        <span class="awesome-dokan-pro-badge">(Pro)</span>
+	<?php
 	}
 
 }

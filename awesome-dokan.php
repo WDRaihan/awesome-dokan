@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Awesome Dokan
  * Requires Plugins:  dokan-lite
- * Description:       Replaces the default Dokan dashboard with a fresh, modern, and user-friendly design.
+ * Description:       Modernize your Dokan vendor dashboard — with more awesome customizations coming soon!
  * Version:           1.0.0
  * Author:            Raihan
  * Requires at least: 5.2
@@ -87,7 +87,7 @@ final class Awesome_Dokan {
     public function init_plugin() {
         // Get our setting
         $options = get_option( 'awesome_dokan_options' );
-        $is_enabled = isset( $options['enable_new_design'] ) ? $options['enable_new_design'] : '';
+        $is_enabled = isset( $options['enable_new_dashboard_design'] ) ? $options['enable_new_dashboard_design'] : '';
 
         // Only load the new design if the setting is checked
         if ( 'on' == $is_enabled ) {
@@ -145,6 +145,25 @@ final class Awesome_Dokan {
  */
 function awesome_dokan() {
     return Awesome_Dokan::init();
+}
+
+/**
+ * Check if Awesome Dokan Pro is active and loaded
+ *
+ * @return bool
+ */
+function awesome_dokan_pro_is_active() {
+    // Load is_plugin_active() if not loaded
+    if ( ! function_exists( 'is_plugin_active' ) ) {
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+
+    // Check by plugin file and by a known class from Awesome Dokan Pro
+    if ( is_plugin_active( 'awesome-dokan-pro/awesome-dokan-pro.php' ) && class_exists( 'Awesome_Dokan_Pro' ) ) {
+        return true;
+    }
+
+    return false;
 }
 
 // Kick-off the plugin
