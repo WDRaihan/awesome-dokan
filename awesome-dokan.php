@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Awesome Dokan
  * Requires Plugins:  dokan-lite
- * Description:       Replaces the default Dokan dashboard with a fresh, modern, and user-friendly design.
+ * Description:       Modernize your Dokan vendor dashboard — with more awesome customizations coming soon!
  * Version:           1.0.0
  * Author:            Raihan
  * Requires at least: 5.2

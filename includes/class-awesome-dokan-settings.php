@@ -62,11 +62,13 @@ class Awesome_Dokan_Settings {
      */
     public function add_admin_menu() {
         add_menu_page(
-            __( 'Awesome Dokan Settings', 'awesome-dokan' ),
+            __( 'Awesome Dokan', 'awesome-dokan' ),
             __( 'Awesome Dokan', 'awesome-dokan' ),
             'manage_options',
             'awesome-dokan',
-            [ $this, 'settings_page_html' ]
+            [ $this, 'settings_page_html' ],
+			'dashicons-smiley',
+			55.6
         );
     }
 
@@ -79,7 +81,7 @@ class Awesome_Dokan_Settings {
 
         add_settings_section(
             'awesome_dokan_general_section',
-            __( 'General Settings', 'awesome-dokan' ),
+            __( 'Dashboard Settings', 'awesome-dokan' ),
             '__return_false',
             'awesome_dokan_settings_group'
         );
@@ -376,6 +378,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_theme_primary_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $theme_primary_color = isset( $styles['theme_primary_color'] ) ? $styles['theme_primary_color'] : '';
         ?>
@@ -386,6 +393,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_theme_secondary_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $theme_secondary_color = isset( $styles['theme_secondary_color'] ) ? $styles['theme_secondary_color'] : '';
         ?>
@@ -397,6 +409,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_header_bg_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $header_bg_color = isset( $styles['header_bg_color'] ) ? $styles['header_bg_color'] : '';
         ?>
@@ -407,6 +424,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_sidebar_bg_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $sidebar_bg_color = isset( $styles['sidebar_bg_color'] ) ? $styles['sidebar_bg_color'] : '';
         ?>
@@ -417,6 +439,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_content_bg_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $content_bg_color = isset( $styles['content_bg_color'] ) ? $styles['content_bg_color'] : '';
         ?>
@@ -427,6 +454,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_header_font_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $header_font_color = isset( $styles['header_font_color'] ) ? $styles['header_font_color'] : '';
         ?>
@@ -437,6 +469,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_sidebar_font_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $header_font_color = isset( $styles['sidebar_font_color'] ) ? $styles['sidebar_font_color'] : '';
         ?>
@@ -447,6 +484,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_sidebar_font_active_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $sidebar_font_active_color = isset( $styles['sidebar_font_active_color'] ) ? $styles['sidebar_font_active_color'] : '';
         ?>
@@ -457,6 +499,11 @@ class Awesome_Dokan_Settings {
     }
 	
 	public function render_sidebar_font_active_bg_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
         $styles = get_option( 'awesome_dokan_styles' );
         $sidebar_font_active_bg_color = isset( $styles['sidebar_font_active_bg_color'] ) ? $styles['sidebar_font_active_bg_color'] : '';
         ?>
@@ -482,10 +529,10 @@ class Awesome_Dokan_Settings {
 					<div class="awesome-dokan-tabs-wrapper">
 						<ul class="awesome-dokan-tabs-nav">
 							<li>
-								<a href="#awesome-dokan-tab1" class="active">General Settings</a>
+								<a href="#awesome-dokan-tab1" class="active"><?php echo esc_html('General Settings', 'awesome-dokan'); ?></a>
 							</li>
 							<li>
-								<a href="#awesome-dokan-tab2">Styles</a>
+								<a href="#awesome-dokan-tab2"><?php echo esc_html('Styles', 'awesome-dokan'); ?></a>
 							</li>
 						</ul>
 					</div>
@@ -539,6 +586,16 @@ class Awesome_Dokan_Settings {
 		}
 
 		return $output;
+	}
+	
+	//Color placeholder field
+	public function awesome_dokan_color_placeholder(){
+		?>
+		<label>
+            <input type="text" class="awesome-dokan-color-field">
+        </label>
+        <span class="awesome-dokan-pro-badge">(Pro)</span>
+	<?php
 	}
 
 }

@@ -398,6 +398,11 @@ a.awesome-navigation-toggle-button:hover i {
 	font-size: 15px;
 }
 
+.awesome-disabled{
+	opacity: 0.8;
+	pointer-events: none
+}
+
 @media (max-width: 767px) {
 	.awesome-header-right {
 		gap: 25px;
