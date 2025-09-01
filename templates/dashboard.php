@@ -6,21 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 //Remove default toggle button
 add_filter( 'dokan_load_hamburger_menu', '__return_false' );
-//Remove default common links
-add_filter( 'dokan_dashboard_nav_common_link', '__return_false' );
-
-//Removes the Dokan Color Scheme Customizer styles from the wp_head action.
-function awesome_dokan_remove_dokan_color_customizer_styles() {
-    // Check if the Dokan Pro function and the specific module exist
-    if ( function_exists( 'dokan_pro' ) ) {
-        // Get the instance of the Color Scheme Customizer module
-        $color_module_instance = dokan_pro()->module->color_scheme_customizer;
-
-        // Remove the action
-        remove_action( 'wp_head', [ $color_module_instance, 'load_styles' ], 10 );
-    }
-}
-add_action( 'init', 'awesome_dokan_remove_dokan_color_customizer_styles', 20 );
 
 //Awesome dashboard header logo and title
 function awesome_dokan_dashboard_header_logo_title(){
@@ -28,8 +13,12 @@ function awesome_dokan_dashboard_header_logo_title(){
 	$dashboard_logo = isset( $options['dashboard_logo'] ) ? $options['dashboard_logo'] : '';
 	
 	if( $dashboard_logo != 'none' ) :
-
-	$logo_url = isset( $options['logo_url'] ) ? esc_url( $options['logo_url'] ) : home_url();
+	
+	$logo_url = home_url();
+	if( awesome_dokan_pro_is_active() ){
+		$logo_url = isset( $options['logo_url'] ) ? esc_url( $options['logo_url'] ) : home_url();
+	}
+	
 	?>
 	<a href="<?php echo esc_url($logo_url); ?>" class="awesome-dashboard-logo">
 		<?php
@@ -143,7 +132,7 @@ function awesome_dokan_dashboard_header(){
 				</a>
 				<?php } ?>
 			<?php
-			$notifications = isset( $options["enable_icon_notifications"] ) ? $options["enable_icon_notifications"] : '';
+			$notifications = isset( $options["enable_icon_order_notification"] ) ? $options["enable_icon_order_notification"] : '';
 				if( $notifications == 'on' ){
 				$new_orders = (array) dokan_count_orders( dokan_get_current_user_id() );
 				?>
@@ -212,4 +201,36 @@ function awesome_dokan_dashboard_wrap_end(){
 	?>
 	</div>
 <?php
+}
+
+/**
+ * Set default color
+ * Hooked into 'awesome_dokan_before_wrapper'
+ */
+add_action('awesome_dokan_before_wrapper', 'awesome_dokan_before_wrapper_add_style', 10);
+function awesome_dokan_before_wrapper_add_style(){
+	
+	$dokan_is_pro_exists = apply_filters( 'dokan_is_pro_exists', false );
+	
+	if( !$dokan_is_pro_exists ) {
+		return;
+	}
+	
+	$colors         	  = dokan_get_option( 'store_color_pallete', 'dokan_colors', [] );
+	
+	$dash_nav_bg          = ! empty( $colors['dash_nav_bg'] ) ? $colors['dash_nav_bg'] : 'var(--dokan-sidebar-background-color, #322067)';
+	$dash_nav_text        = ! empty( $colors['dash_nav_text'] ) ? $colors['dash_nav_text'] : '#ffffff';
+	$dash_active_menu     = ! empty( $colors['dash_active_link'] ) ? $colors['dash_active_link'] : '#7047EB';
+	$dash_nav_active_text = ! empty( $colors['dash_nav_active_text'] ) ? $colors['dash_nav_active_text'] : '#ffffff';
+	?>
+	<style>
+		:root {
+			--awesome-default-background-color: <?php echo esc_attr($dash_nav_bg); ?>;
+			--awesome-default-font-color: <?php echo esc_attr($dash_nav_text); ?>;
+			--awesome-default-font-background-color: <?php echo esc_attr($dash_active_menu); ?>;
+			--awesome-default-sidebar-font-color: <?php echo esc_attr($dash_nav_text); ?>;
+			--awesome-default-sidebar-font-active-color: <?php echo esc_attr($dash_nav_active_text); ?>;
+		}
+	</style>
+	<?php
 }

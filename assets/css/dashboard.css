@@ -3,18 +3,8 @@
 	--awesome-default-font-color: #ffffff;
 	--awesome-default-font-background-color: #7047EB;
 	--awesome-default-sidebar-font-color: #ffffff;
+	--awesome-default-sidebar-font-active-color: #ffffff;
 	--awesome-default-content-background-color: #f8fafc;
-}
-
-#awesome_dokan_wrapper.awesome-dokan-fullscreen-mode {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	z-index: 9999;
-	background: white;
-	overflow: auto
 }
 
 .awesome-dokan-header {
@@ -67,10 +57,6 @@
 	border-radius: 0
 }
 
-.dokan-dashboard .awesome-dokan-wrapper.theme_two.awesome-dokan-fullscreen-mode .dokan-dash-sidebar {
-    margin-top: 75px;
-}
-
 .dokan-dashboard #awesome_dokan_wrapper.awesome-dokan-fullscreen-mode .dokan-dashboard-wrap {
 	height: 100%
 }
@@ -118,10 +104,6 @@
 	font-size: 15px;
 	font-weight: normal;
 	font-style: italic;
-}
-
-.awesome-dokan-wrapper.theme_two .awesome-dokan-header-title span {
-	display: block
 }
 
 .awesome-dokan-wrapper .dokan-dash-sidebar .awesome-dokan-header-title {
@@ -258,10 +240,6 @@
 	padding-bottom: 15px !important
 }
 
-.dokan-dashboard .awesome-dokan-wrapper.theme_two .dokan-dashboard-content {
-	overflow: unset
-}
-
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active:after {
 	border-color: transparent var(--awesome-content-background-color, var(--awesome-default-content-background-color)) transparent transparent;
 	border-left-color: var(--awesome-content-background-color, var(--awesome-default-content-background-color));
@@ -325,7 +303,7 @@ a.awesome-navigation-toggle-button:hover i {
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover a,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li:hover a,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li.current a {
-	color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-color));
+	color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-active-color));
 }
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li:hover:before,
@@ -507,34 +485,8 @@ a.awesome-navigation-toggle-button:hover i {
 		display: flex
 	}
 
-	.dokan-dashboard .awesome-dokan-wrapper.theme_two.awesome-dokan-fullscreen-mode .dokan-dash-sidebar {
-		margin-top: 0;
-	}
 	.awesome-toggle-button .awesome-fullscreen-toggle-title {
 		display: none
-	}
-}
-
-@media (min-width: 768px) {
-	/* Theme two */
-	.awesome-dokan-wrapper.theme_two .dokan-dashboard-content {
-		position: relative
-	}
-	.awesome-dokan-wrapper.theme_two {
-		position: unset;
-		padding-top: 0;
-	}
-	.dokan-dashboard .awesome-dokan-wrapper.theme_two .dokan-dashboard-content {
-		padding-top: 85px !important;
-	}
-	.awesome-dokan-wrapper.theme_two .dokan-dashboard-wrap{
-		position: relative
-	}
-	.awesome-dokan-wrapper.theme_two .dokan-dash-sidebar {
-		z-index: 2
-	}
-	.awesome-dokan-wrapper.theme_two .awesome-dokan-header {
-		border-radius: 0
 	}
 }
 
