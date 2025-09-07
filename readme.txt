@@ -23,6 +23,16 @@ Bring the awesome to your Dokan marketplace today!
 3. Make sure you have the Dokan Lite plugin installed and activated.
 4. Visit your vendor dashboard to see the new design!
 
+== Screenshots ==
+
+1. Theme one.
+2. Theme two and Avatar dropdown.
+3. Hide/show sidebar navigation.
+4. Mobile view and full-screen view.
+5. Mobile menu dropdown.
+6. Custom dashboard color.
+7. Settings panel.
+
 == Changelog ==
 
 = 1.0.0 =
