@@ -3,7 +3,7 @@
  * Plugin Name:       Awesome Dokan
  * Requires Plugins:  dokan-lite
  * Description:       Modernize your Dokan vendor dashboard — with more awesome customizations coming soon!
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Raihan
  * Requires at least: 5.2
  * Requires PHP: 	  7.2
@@ -28,7 +28,7 @@ final class Awesome_Dokan {
      *
      * @var string
      */
-    const VERSION = '1.1.0';
+    const VERSION = '1.0.1';
 
     /**
      * Class constructor.
