@@ -217,14 +217,15 @@
 	padding-top: 75px;
 }
 
-.awesome-dokan-wrapper ul.dokan-dashboard-menu,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu,
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover:not(.active) ul.navigation-submenu,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li {
-	background: var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) !important;
+	background-color: var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) !important;
 }
 
-.awesome-dokan-wrapper .dokan-dash-sidebar {
-	background: var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) !important;
+.dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar {
+	background-color: var(--awesome-sidebar-background-color, var(--awesome-default-background-color)) !important;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
@@ -291,24 +292,24 @@ a.awesome-navigation-toggle-button:hover i {
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover {
-	background: var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color));
+	background-color: var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color)) !important;
 }
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li a,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li a {
-	color: var(--awesome-sidebar-font-color, var(--awesome-default-sidebar-font-color));
+	color: var(--awesome-sidebar-font-color, var(--awesome-default-sidebar-font-color)) !important;
 }
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active a,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover a,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li:hover a,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li.current a {
-	color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-active-color));
+	color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-active-color)) !important;
 }
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li:hover:before,
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li ul.navigation-submenu li.current:before {
-	border-color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-color));
+	border-color: var(--awesome-sidebar-font-active-color, var(--awesome-default-sidebar-font-color)) !important;
 }
 
 .dokan-dashboard .awesome-dokan-wrapper .dokan-dash-sidebar ul.dokan-dashboard-menu li.active ul.navigation-submenu {
