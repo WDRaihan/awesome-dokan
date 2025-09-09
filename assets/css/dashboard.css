@@ -316,19 +316,6 @@ a.awesome-navigation-toggle-button:hover i {
 	border-bottom: 0.5px solid var(--awesome-sidebar-font-background-color, var(--awesome-default-font-background-color));
 }
 
-/*.dokan-layout .dokan-btn {
-    border-color: var(--dokan-button-border-color, #7047EB) !important;
-    background-color: var(--dokan-button-background-color, #7047EB) !important;
-    color: var(--dokan-button-text-color, #ffffff) !important;
-    --tw-shadow: 0 0 #0000 !important;
-    --tw-shadow-colored: 0 0 #0000 !important;
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
-    --tw-ring-color: var(--dokan-button-border-color, #7047EB) !important;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke !important;
-    transition-duration: 200ms !important;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-}*/
-
 /*Awesome toggle button*/
 .awesome-toggle-switch {
   position: relative;
