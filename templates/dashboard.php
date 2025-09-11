@@ -15,8 +15,8 @@ function awesome_dokan_dashboard_header_logo_title(){
 	if( $dashboard_logo != 'none' ) :
 	
 	$logo_url = home_url();
-	if( awesome_dokan_pro_is_active() ){
-		$logo_url = isset( $options['logo_url'] ) ? esc_url( $options['logo_url'] ) : home_url();
+	if( awesome_dokan_pro_is_active() && isset( $options['logo_url'] ) ){
+		$logo_url = !empty( $options['logo_url'] ) ? esc_url( $options['logo_url'] ) : home_url();
 	}
 	
 	?>
