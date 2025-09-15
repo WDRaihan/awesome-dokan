@@ -189,9 +189,33 @@ class Awesome_Dokan_Settings {
         );
 
         add_settings_field(
-            'theme_secondary_color',
-            __( 'Secondary Color', 'awesome-dokan' ),
-            [ $this, 'render_theme_secondary_color_field' ],
+            'theme_button_bg_color',
+            __( 'Button Background Color', 'awesome-dokan' ),
+            [ $this, 'render_theme_button_bg_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_theme_color_section',
+        );
+
+        add_settings_field(
+            'theme_button_text_color',
+            __( 'Button Text Color', 'awesome-dokan' ),
+            [ $this, 'render_theme_button_text_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_theme_color_section',
+        );
+
+        add_settings_field(
+            'theme_button_bg_hover_color',
+            __( 'Button Background Hover Color', 'awesome-dokan' ),
+            [ $this, 'render_theme_button_bg_hover_color_field' ],
+            'awesome_dokan_styles_group',
+            'awesome_dokan_theme_color_section',
+        );
+
+        add_settings_field(
+            'theme_button_text_hover_color',
+            __( 'Button Text Hover Color', 'awesome-dokan' ),
+            [ $this, 'render_theme_button_text_hover_color_field' ],
             'awesome_dokan_styles_group',
             'awesome_dokan_theme_color_section',
         );
@@ -284,7 +308,7 @@ class Awesome_Dokan_Settings {
 		}else{
 			?>
 			<label>
-				<input type="radio" disabled> <?php echo esc_html__('Theme Two','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge">(Pro)</span>
+				<input type="radio" disabled> <?php echo esc_html__('Theme Two','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
 			</label>
 		<?php
 		}
@@ -328,7 +352,7 @@ class Awesome_Dokan_Settings {
 		}
         ?>
         <input type="text" value="" class="regular-text" disabled>
-        <button type="button" class="button" disabled><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button> <span class="awesome-dokan-pro-badge">(Pro)</span>
+        <button type="button" class="button" disabled><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
         <?php
     }
 
@@ -338,7 +362,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <input type="text" class="regular-text" placeholder="Enter logo URL" disabled> <span class="awesome-dokan-pro-badge">(Pro)</span>
+        <input type="text" class="regular-text" placeholder="Enter logo URL" disabled> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
         <p class="description"><?php echo esc_html__('Default is set to home URL','awesome-dokan'); ?></p>
         <?php
     }
@@ -349,7 +373,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge">(Pro)</span></label>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span></label>
         <?php
     }
 
@@ -359,7 +383,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge">(Pro)</span></label>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span></label>
         <?php
     }
 
@@ -369,7 +393,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Common links such as Visit Store, Edit Account, and Logout are located at the bottom of the sidebar navigation. (These links are available in the dashboard header).','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge">(Pro)</span></label>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Common links such as Visit Store, Edit Account, and Logout are located at the bottom of the sidebar navigation. (These links are available in the dashboard header).','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span></label>
         <?php
     }
 	
@@ -392,17 +416,62 @@ class Awesome_Dokan_Settings {
         <?php
     }
 	
-	public function render_theme_secondary_color_field() {
+	public function render_theme_button_bg_color_field() {
 		if( !awesome_dokan_pro_is_active() ){
 			$this->awesome_dokan_color_placeholder();
 			return;
 		}
 		
         $styles = get_option( 'awesome_dokan_styles' );
-        $theme_secondary_color = isset( $styles['theme_secondary_color'] ) ? $styles['theme_secondary_color'] : '';
+        $theme_button_bg_color = isset( $styles['theme_button_bg_color'] ) ? $styles['theme_button_bg_color'] : '';
         ?>
-        <label for="theme_secondary_color">
-            <input type="text" name="awesome_dokan_styles[theme_secondary_color]" class="awesome-dokan-color-field" id="theme_secondary_color" value="<?php echo esc_attr($theme_secondary_color); ?>">
+        <label for="theme_button_bg_color">
+            <input type="text" name="awesome_dokan_styles[theme_button_bg_color]" class="awesome-dokan-color-field" id="theme_button_bg_color" value="<?php echo esc_attr($theme_button_bg_color); ?>">
+        </label>
+        <?php
+    }
+	
+	public function render_theme_button_text_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
+        $styles = get_option( 'awesome_dokan_styles' );
+        $theme_button_text_color = isset( $styles['theme_button_text_color'] ) ? $styles['theme_button_text_color'] : '';
+        ?>
+        <label for="theme_button_text_color">
+            <input type="text" name="awesome_dokan_styles[theme_button_text_color]" class="awesome-dokan-color-field" id="theme_button_text_color" value="<?php echo esc_attr($theme_button_text_color); ?>">
+        </label>
+        <?php
+    }
+	
+	public function render_theme_button_bg_hover_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
+        $styles = get_option( 'awesome_dokan_styles' );
+        $theme_button_bg_hover_color = isset( $styles['theme_button_bg_hover_color'] ) ? $styles['theme_button_bg_hover_color'] : '';
+        ?>
+        <label for="theme_button_bg_hover_color">
+            <input type="text" name="awesome_dokan_styles[theme_button_bg_hover_color]" class="awesome-dokan-color-field" id="theme_button_bg_hover_color" value="<?php echo esc_attr($theme_button_bg_hover_color); ?>">
+        </label>
+        <?php
+    }
+	
+	public function render_theme_button_text_hover_color_field() {
+		if( !awesome_dokan_pro_is_active() ){
+			$this->awesome_dokan_color_placeholder();
+			return;
+		}
+		
+        $styles = get_option( 'awesome_dokan_styles' );
+        $theme_button_text_hover_color = isset( $styles['theme_button_text_hover_color'] ) ? $styles['theme_button_text_hover_color'] : '';
+        ?>
+        <label for="theme_button_text_hover_color">
+            <input type="text" name="awesome_dokan_styles[theme_button_text_hover_color]" class="awesome-dokan-color-field" id="theme_button_text_hover_color" value="<?php echo esc_attr($theme_button_text_hover_color); ?>">
         </label>
         <br><br>
         <?php
@@ -594,7 +663,7 @@ class Awesome_Dokan_Settings {
 		<label>
             <input type="text" class="awesome-dokan-color-field">
         </label>
-        <span class="awesome-dokan-pro-badge">(Pro)</span>
+        <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
 	<?php
 	}
 
