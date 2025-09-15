@@ -2,7 +2,7 @@
 Contributors: wdraihan
 Tags: dokan, dashboard, redesign, woocommerce, vendor dashboard
 Tested up to: 6.8
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,19 +18,19 @@ But this is just the beginning — in the future, we’ll be adding more advance
 
 == 🚀 Free Features (Available in Free Version) ==
 
-Enable New Dashboard Design – Instantly replace the default Dokan vendor dashboard with a modern, stylish design.
+**Enable New Dashboard Design** – Instantly replace the default Dokan vendor dashboard with a modern, stylish design.
 
-Select Dashboard Theme (Theme One) – Apply a clean new theme to the Dokan vendor dashboard.
+**Select Dashboard Theme (Theme One)** – Apply a clean new theme to the Dokan vendor dashboard.
 
-Custom Greeting Text – Add a personalized greeting at the top of the Dokan vendor dashboard, with support for dynamic usernames using {user} shortcode.
+**Custom Greeting Text** – Add a personalized greeting at the top of the Dokan vendor dashboard, with support for dynamic usernames using '{user}' shortcode.
 
-Dashboard Logo Source – Select whether the Dokan vendor dashboard should display the site icon or a logo.
+**Dashboard Logo Source** – Select whether the Dokan vendor dashboard should display the site icon or a logo.
 
-Show “Visit Store” Icon – Add a quick link to the vendor’s store from the Dokan vendor dashboard.
+**Show “Visit Store” Icon** – Add a quick link to the vendor’s store from the Dokan vendor dashboard.
 
-Show “Withdraw” Icon – Enable vendors to access withdrawals easily from the Dokan vendor dashboard.
+**Show “Withdraw” Icon** – Enable vendors to access withdrawals easily from the Dokan vendor dashboard.
 
-Show “Order Notification” Icon – Display order alerts directly inside the Dokan vendor dashboard.
+**Show “Order Notification” Icon** – Display order alerts directly inside the Dokan vendor dashboard.
 
 == 🌟 Pro Features (Upgrade Required) ==
 
