@@ -165,8 +165,18 @@ function awesome_dokan_dashboard_header(){
  */
 add_action('dokan_dashboard_sidebar_start', 'awesome_dokan_add_logo_title_dashboard_sidebar_start', 1);
 function awesome_dokan_add_logo_title_dashboard_sidebar_start(){
+	echo '<div class="awesome-dashboard-sidebar-wrapper">';
 	echo '<div class="awesome-header-logo-title">';
 	awesome_dokan_dashboard_header_logo_title();
+	echo '</div>';
+}
+
+/**
+ * Add dashboard sideboard wrapper end
+ * Hooked into 'dokan_dashboard_sidebar_start'
+ */
+add_action('dokan_dashboard_sidebar_end', 'awesome_dokan_dashboard_sidebar_end', 999);
+function awesome_dokan_dashboard_sidebar_end(){
 	echo '</div>';
 }
 
