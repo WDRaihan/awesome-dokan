@@ -128,7 +128,7 @@ class Awesome_Dokan_Settings {
 
         add_settings_field(
             'logo_url',
-            __( 'Custom Logo URL', 'awesome-dokan' ),
+            __( 'Custom Logo Redirect URL', 'awesome-dokan' ),
             [ $this, 'render_logo_url_field' ],
             'awesome_dokan_settings_group',
             'awesome_dokan_general_section'
@@ -362,8 +362,8 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <input type="text" class="regular-text" placeholder="Enter logo URL" disabled> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
-        <p class="description"><?php echo esc_html__('Default is set to home URL','awesome-dokan'); ?></p>
+        <input type="text" class="regular-text" placeholder="Enter URL" disabled> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
+        <p class="description"><?php echo esc_html__('Enter the URL where visitors will be redirected when clicking the logo. Default is set to home URL','awesome-dokan'); ?></p>
         <?php
     }
 

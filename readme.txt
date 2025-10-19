@@ -2,7 +2,7 @@
 Contributors: atplugins, raihan143
 Tags: dokan, dashboard, redesign, woocommerce, vendor dashboard
 Tested up to: 6.8
-Stable tag: 1.0.3
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,8 @@ Awesome Dokan: Ultimate Vendor Dashboard Experience — a powerful plugin design
 Currently focused on enhancing the Dokan vendor dashboard design, Awesome Dokan ensures a clean and professional user experience. Whether you are managing products, orders, or your store settings, this plugin makes the Dokan vendor dashboard easier and more enjoyable to use.
 
 But this is just the beginning — in the future, we’ll be adding more advanced Dokan customizations beyond the vendor dashboard, making your multi-vendor marketplace even more powerful and flexible.
+
+👉 Live Demo: [Try it here](https://atplugins.com/dashboard/)
 
 == 🚀 Free Features (Available in Free Version) ==
 
@@ -100,6 +102,9 @@ Bring the awesome to your Dokan vendor dashboard and transform your marketplace 
 7. Settings panel.
 
 == Changelog ==
+
+= 1.0.5 =
+* Update admin settings field text.
 
 = 1.0.3 =
 * Minor update.
