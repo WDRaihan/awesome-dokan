@@ -1,8 +1,8 @@
 === Awesome Dokan: Ultimate Dokan Vendor Dashboard Experience ===
 Contributors: atplugins, raihan143
 Tags: dokan, dashboard, redesign, woocommerce, vendor dashboard
-Tested up to: 6.8
-Stable tag: 1.0.6
+Tested up to: 6.9
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,10 @@ Bring the awesome to your Dokan vendor dashboard and transform your marketplace 
 7. Settings panel.
 
 == Changelog ==
+
+= 1.0.7 =
+* Tested up to: 6.9
+* Update pro URL.
 
 = 1.0.6 =
 * Update translation.

@@ -332,7 +332,7 @@ class Awesome_Dokan_Settings {
 		}else{
 			?>
 			<label>
-				<input type="radio" disabled> <?php echo esc_html__('Theme Two','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
+				<input type="radio" disabled> <?php echo esc_html__('Theme Two','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span>
 			</label>
 		<?php
 		}
@@ -376,7 +376,7 @@ class Awesome_Dokan_Settings {
 		}
         ?>
         <input type="text" value="" class="regular-text" disabled>
-        <button type="button" class="button" disabled><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
+        <button type="button" class="button" disabled><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span>
         <?php
     }
 
@@ -386,7 +386,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <input type="text" class="regular-text" placeholder="Enter URL" disabled> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
+        <input type="text" class="regular-text" placeholder="Enter URL" disabled> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span>
         <p class="description"><?php echo esc_html__('Enter the URL where visitors will be redirected when clicking the logo. Default is set to home URL','awesome-dokan'); ?></p>
         <?php
     }
@@ -397,7 +397,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span></label>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span></label>
         <?php
     }
 
@@ -407,7 +407,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span></label>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span></label>
         <?php
     }
 
@@ -417,7 +417,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Common links such as Visit Store, Edit Account, and Logout are located at the bottom of the sidebar navigation. (These links are available in the dashboard header).','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span></label>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Common links such as Visit Store, Edit Account, and Logout are located at the bottom of the sidebar navigation. (These links are available in the dashboard header).','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span></label>
         <?php
     }
 	
@@ -687,7 +687,7 @@ class Awesome_Dokan_Settings {
 		<label>
             <input type="text" class="awesome-dokan-color-field">
         </label>
-        <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="https://atplugins.com/awesome-dokan-pro/">(Pro)</a></span>
+        <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span>
 	<?php
 	}
 
