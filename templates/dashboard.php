@@ -119,7 +119,7 @@ function awesome_dokan_dashboard_header(){
 			$visit_store = isset( $options["enable_icon_visit_store"] ) ? $options["enable_icon_visit_store"] : '';
 			if( $visit_store == 'on' ){
 				?>
-				<a target="_blank" href="<?php echo esc_url(dokan_get_store_url( dokan_get_current_user_id() )); ?>" class="icon-btn tips" data-original-title="Visit Store">
+				<a target="_blank" href="<?php echo esc_url(dokan_get_store_url( dokan_get_current_user_id() )); ?>" class="icon-btn tips" data-original-title="<?php echo esc_html__('Visit Store', 'awesome-dokan'); ?>">
 					<i class="fas fa-store"></i>
 				</a>
 			<?php } ?>
@@ -127,7 +127,7 @@ function awesome_dokan_dashboard_header(){
 			$withdraw = isset( $options["enable_icon_withdraw"] ) ? $options["enable_icon_withdraw"] : '';
 			if( $withdraw == 'on' ){
 				?>
-				<a href="<?php echo esc_url( dokan_get_navigation_url( 'withdraw' ) ); ?>" class="icon-btn tips awesome-hide-mobile" data-original-title="Withdraw">
+				<a href="<?php echo esc_url( dokan_get_navigation_url( 'withdraw' ) ); ?>" class="icon-btn tips awesome-hide-mobile" data-original-title="<?php echo esc_html__('Withdraw', 'awesome-dokan'); ?>">
 					<i class="fas fa-upload"></i>
 				</a>
 				<?php } ?>
@@ -136,7 +136,7 @@ function awesome_dokan_dashboard_header(){
 				if( $notifications == 'on' ){
 				$new_orders = (array) dokan_count_orders( dokan_get_current_user_id() );
 				?>
-				<a href="<?php echo esc_url( dokan_get_navigation_url( 'orders' ) ); ?>" class="icon-btn tips" data-original-title="New Orders">
+				<a href="<?php echo esc_url( dokan_get_navigation_url( 'orders' ) ); ?>" class="icon-btn tips" data-original-title="<?php echo esc_html__('New Orders', 'awesome-dokan'); ?>">
 					<i class="fas fa-shopping-cart"></i>
 					<?php if ( $new_orders ) : ?>
 					<span class="badge"><?php echo isset( $new_orders['wc-processing'] ) ? intval( $new_orders['wc-processing'] ) : 0; ?></span>

@@ -1,0 +1,261 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Awesome Dokan\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-23 13:05+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.0; wp-6.8.3; php-8.2.27\n"
+"X-Domain: awesome-dokan"
+
+#. Author of the plugin
+msgid "atPlugins"
+msgstr ""
+
+#. Name of the plugin
+#: includes/class-awesome-dokan-settings.php:65
+#: includes/class-awesome-dokan-settings.php:66
+msgid "Awesome Dokan"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:217
+msgid "Button Background Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:233
+msgid "Button Background Hover Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:225
+msgid "Button Text Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:241
+msgid "Button Text Hover Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:317
+msgid ""
+"Check this box to replace the default Dokan dashboard with the new design."
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:420
+msgid ""
+"Common links such as Visit Store, Edit Account, and Logout are located at "
+"the bottom of the sidebar navigation. (These links are available in the "
+"dashboard header)."
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:272
+msgid "Content Background Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:107
+msgid "Custom Greeting Text"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:364
+msgid "Custom Logo"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:131
+msgid "Custom Logo Redirect URL"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:249
+msgid "Customize Vendor Dashboard Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:115
+msgid "Dashboard Logo Source"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:84
+msgid "Dashboard Settings"
+msgstr ""
+
+#: templates/dashboard.php:153
+msgid "Edit Account"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:91
+msgid "Enable New Dashboard Design"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:160
+#: includes/class-awesome-dokan-settings.php:173
+#: includes/class-awesome-dokan-settings.php:186
+msgid "Enable this icon in the header"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:390
+msgid ""
+"Enter the URL where visitors will be redirected when clicking the logo. "
+"Default is set to home URL"
+msgstr ""
+
+#: templates/dashboard.php:55
+msgid "Good afternoon"
+msgstr ""
+
+#: templates/dashboard.php:55
+msgid "Good evening"
+msgstr ""
+
+#: templates/dashboard.php:55
+msgid "Good morning"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:256
+msgid "Header Background Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:280
+msgid "Header Font Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:194
+msgid "Hide Default Nav Common Links"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://atplugins.com/"
+msgstr ""
+
+#: templates/dashboard.php:154
+msgid "Log Out"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:359
+msgid "Main Logo"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Modernize your Dokan vendor dashboard — with more awesome customizations "
+"coming soon!"
+msgstr ""
+
+#: templates/dashboard.php:139
+msgid "New Orders"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:367
+msgid "None"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:209
+msgid "Primary Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:650
+msgid "Save Settings"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:340
+msgid "Select a Visual Style for the Dashboard."
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:99
+msgid "Select Dashboard Theme"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:425
+msgid ""
+"Select your theme colors. These colors will be applied to your Dokan "
+"marketplace."
+msgstr ""
+
+#: awesome-dokan.php:136
+msgid "Settings"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:147
+msgid "Show \"Add New Product\" Icon"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:182
+msgid "Show \"Order Notification\" Icon"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:139
+msgid "Show \"Sidebar Hide/Show\" Icon"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:156
+msgid "Show \"Visit Store\" Icon"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:169
+msgid "Show \"Withdraw\" Icon"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:400
+msgid "Show this icon in the header when using the desktop site."
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:410
+msgid "Show this icon in the header."
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:264
+msgid "Sidebar Background Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:304
+msgid "Sidebar Font Active Background Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:296
+msgid "Sidebar Font Active Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:288
+msgid "Sidebar Font Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:358
+msgid "Site Icon"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:202
+msgid "Theme Color"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:327
+msgid "Theme One"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:335
+msgid "Theme Two"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:349
+msgid ""
+"To display the username, use this shortcode: {user}. Leave blank to show "
+"time-based greeting."
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:123
+msgid "Upload Custom Logo"
+msgstr ""
+
+#: includes/class-awesome-dokan-settings.php:379
+msgid "Upload Logo"
+msgstr ""
+
+#: templates/dashboard.php:122
+msgid "Visit Store"
+msgstr ""
+
+#: templates/dashboard.php:130
+msgid "Withdraw"
+msgstr ""
