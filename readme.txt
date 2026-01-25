@@ -16,7 +16,7 @@ Currently focused on enhancing the Dokan vendor dashboard design, Awesome Dokan 
 
 But this is just the beginning — in the future, we’ll be adding more advanced Dokan customizations beyond the vendor dashboard, making your multi-vendor marketplace even more powerful and flexible.
 
-👉 Live Demo: [Try it here](https://atplugins.com/dashboard/)
+👉 Live Demo: [Try it here](https://atplugins.com/products/awesome-dokan/)
 
 == 🚀 Free Features (Available in Free Version) ==
 
