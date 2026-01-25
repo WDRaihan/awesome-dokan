@@ -3,7 +3,7 @@
  * Plugin Name:       Awesome Dokan
  * Requires Plugins:  dokan-lite
  * Description:       Modernize your Dokan vendor dashboard — with more awesome customizations coming soon!
- * Version:           1.0.7
+ * Version:           1.0.8
  * Author:            atPlugins
  * Author URI:        https://atplugins.com/
  * Requires at least: 5.2
@@ -29,7 +29,7 @@ final class Awesome_Dokan {
      *
      * @var string
      */
-    const VERSION = '1.0.7';
+    const VERSION = '1.0.8';
 
     /**
      * Class constructor.
@@ -94,7 +94,7 @@ final class Awesome_Dokan {
         // Only load the new design if the setting is checked
         if ( 'on' == $is_enabled ) {
             add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-            $this->override_dokan_template();
+            $this->load_new_dashboard_design();
         }
     }
 
@@ -115,15 +115,15 @@ final class Awesome_Dokan {
     }
 
     /**
-     * Override Dokan templates with our custom ones.
+     * Load new dashboard design.
      *
-     * @param string $template      The original template path.
-     * @param string $slug          The template slug.
-     * @param string $name          The template name.
-     *
-     * @return string The new template path.
+     * @return void
      */
-    public function override_dokan_template() {
+    public function load_new_dashboard_design() {
+        // Load functions
+        require_once AWESOME_DOKAN_PATH . '/includes/functions.php';
+
+        // Override Dokan templates with our custom ones.
         require_once AWESOME_DOKAN_PATH . '/templates/dashboard.php';
     }
 
