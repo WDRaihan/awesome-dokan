@@ -69,7 +69,11 @@ function awesome_dokan_dashboard_header_logo_title(){
 //Awesome dashboard header
 function awesome_dokan_dashboard_header(){
 	$options = get_option( 'awesome_dokan_options' );
-	$dashboard_theme = apply_filters('awesome_dokan_dashboard_theme', 'theme_one');
+	if( isset( $options['dashboard_theme'] ) && ( $options['dashboard_theme'] == 'theme_one' || $options['dashboard_theme'] == 'theme_two' ) ) {
+		$dashboard_theme = $options['dashboard_theme'];
+	} else {
+		$dashboard_theme = apply_filters('awesome_dokan_dashboard_theme', 'theme_one');
+	}
 	?>
 	<div class="awesome-dokan-header">
 		<div class="awesome-header-left">
@@ -77,7 +81,7 @@ function awesome_dokan_dashboard_header(){
 			<?php
 			/*Sidebar nav toggle*/
 			if( $dashboard_theme == 'theme_two' ){
-				if( function_exists('awesome_dokan_sidebar_nav_toggle') && awesome_dokan_pro_is_active() ){
+				if( function_exists('awesome_dokan_sidebar_nav_toggle') ){
 					awesome_dokan_sidebar_nav_toggle();
 				}
 			}
@@ -93,7 +97,7 @@ function awesome_dokan_dashboard_header(){
 		<div class="awesome-header-center">
 			<?php 
 			/*Show full-screen button*/
-			if( function_exists('awesome_dokan_fullscreen_button') && awesome_dokan_pro_is_active() ){
+			if( function_exists('awesome_dokan_fullscreen_button') ){
 				awesome_dokan_fullscreen_button();
 			}
 			?>
@@ -103,7 +107,7 @@ function awesome_dokan_dashboard_header(){
 			<?php
 			/*sidebar nav toggle*/
 			if( $dashboard_theme == 'theme_one' ){
-				if( function_exists('awesome_dokan_sidebar_nav_toggle') && awesome_dokan_pro_is_active() ){
+				if( function_exists('awesome_dokan_sidebar_nav_toggle') ){
 					awesome_dokan_sidebar_nav_toggle();
 				}
 			}
@@ -187,7 +191,11 @@ function awesome_dokan_dashboard_sidebar_end(){
 add_action('dokan_dashboard_wrap_start', 'awesome_dokan_dashboard_wrap_start', 1);
 function awesome_dokan_dashboard_wrap_start(){
 	$options = get_option( 'awesome_dokan_options' );
-	$dashboard_theme = apply_filters('awesome_dokan_dashboard_theme', 'theme_one');
+	if( isset( $options['dashboard_theme'] ) && ( $options['dashboard_theme'] == 'theme_one' || $options['dashboard_theme'] == 'theme_two' ) ) {
+		$dashboard_theme = $options['dashboard_theme'];
+	} else {
+		$dashboard_theme = apply_filters('awesome_dokan_dashboard_theme', 'theme_one');
+	}
 	
 	do_action('awesome_dokan_before_wrapper');
 	

@@ -326,14 +326,17 @@ class Awesome_Dokan_Settings {
         <label for="dashboard_theme_one">
             <input type="radio" name="awesome_dokan_options[dashboard_theme]" id="dashboard_theme_one" value="theme_one" <?php checked( $checked, 'theme_one' ); ?>> <?php echo esc_html__('Theme One','awesome-dokan'); ?>
         </label><br>
+        <label for="dashboard_theme_two">
+			<input type="radio" name="awesome_dokan_options[dashboard_theme]" id="dashboard_theme_two" value="theme_two" <?php checked( $checked, 'theme_two' ); ?>> <?php echo esc_html__('Theme Two','awesome-dokan-pro'); ?>
+		</label><br>
         <?php 
-		if( function_exists('awesome_dokan_render_dashboard_theme_field') ){
-			awesome_dokan_render_dashboard_theme_field();
+		if( function_exists('awesome_dokan_pro_render_dashboard_theme_field') ){
+			// awesome_dokan_pro_render_dashboard_theme_field();
 		}else{
 			?>
-			<label>
-				<input type="radio" disabled> <?php echo esc_html__('Theme Two','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span>
-			</label>
+			<!-- <label>
+				<input type="radio" disabled> <?php echo esc_html__('Theme Three','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_DEMO_URL); ?>">(Pro)</a></span>
+			</label> -->
 		<?php
 		}
 		?>
@@ -376,7 +379,7 @@ class Awesome_Dokan_Settings {
 		}
         ?>
         <input type="text" value="" class="regular-text" disabled>
-        <button type="button" class="button" disabled><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span>
+        <button type="button" class="button" disabled><?php echo esc_html__('Upload Logo','awesome-dokan'); ?></button> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_DEMO_URL); ?>">(Pro)</a></span>
         <?php
     }
 
@@ -386,19 +389,17 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <input type="text" class="regular-text" placeholder="Enter URL" disabled> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span>
+        <input type="text" class="regular-text" placeholder="Enter URL" disabled> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_DEMO_URL); ?>">(Pro)</a></span>
         <p class="description"><?php echo esc_html__('Enter the URL where visitors will be redirected when clicking the logo. Default is set to home URL','awesome-dokan'); ?></p>
         <?php
     }
 
     public function render_sidebar_hide_show_field() {
-		if( function_exists('awesome_dokan_render_sidebar_hide_show_field') && awesome_dokan_pro_is_active() ){
-			awesome_dokan_render_sidebar_hide_show_field();
-			return;
-		}
-        ?>
-        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span></label>
-        <?php
+		$options = get_option( 'awesome_dokan_options' );
+		$checked = isset( $options['sidebar_hide_show'] ) ? $options['sidebar_hide_show'] : '';
+		?>
+		<label><input type="checkbox" name="awesome_dokan_options[sidebar_hide_show]" id="sidebar_hide_show" value="on" <?php echo checked( $checked, 'on', false ); ?> class="regular-text"> <?php echo esc_html__('Show this icon in the header when using the desktop site','awesome-dokan-pro'); ?></label>
+		<?php
     }
 
     public function render_add_new_product_field() {
@@ -407,7 +408,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span></label>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Show this icon in the header.','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_DEMO_URL); ?>">(Pro)</a></span></label>
         <?php
     }
 
@@ -417,7 +418,7 @@ class Awesome_Dokan_Settings {
 			return;
 		}
         ?>
-        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Common links such as Visit Store, Edit Account, and Logout are located at the bottom of the sidebar navigation. (These links are available in the dashboard header).','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span></label>
+        <label><input type="checkbox" disabled class="regular-text"> <?php echo esc_html__('Common links such as Visit Store, Edit Account, and Logout are located at the bottom of the sidebar navigation. (These links are available in the dashboard header).','awesome-dokan'); ?> <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_DEMO_URL); ?>">(Pro)</a></span></label>
         <?php
     }
 	
@@ -687,7 +688,7 @@ class Awesome_Dokan_Settings {
 		<label>
             <input type="text" class="awesome-dokan-color-field">
         </label>
-        <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_URL); ?>">(Pro)</a></span>
+        <span class="awesome-dokan-pro-badge"><a target="_blank" rel="nofollow" href="<?php echo esc_url(AWESOME_DOKAN_PRO_DEMO_URL); ?>">(Pro)</a></span>
 	<?php
 	}
 

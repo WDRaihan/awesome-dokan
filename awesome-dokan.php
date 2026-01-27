@@ -3,7 +3,7 @@
  * Plugin Name:       Awesome Dokan
  * Requires Plugins:  dokan-lite
  * Description:       Modernize your Dokan vendor dashboard — with more awesome customizations coming soon!
- * Version:           1.0.8
+ * Version:           1.0.9
  * Author:            atPlugins
  * Author URI:        https://atplugins.com/
  * Requires at least: 5.2
@@ -29,7 +29,7 @@ final class Awesome_Dokan {
      *
      * @var string
      */
-    const VERSION = '1.0.8';
+    const VERSION = '1.0.9';
 
     /**
      * Class constructor.
@@ -67,7 +67,7 @@ final class Awesome_Dokan {
         define( 'AWESOME_DOKAN_PATH', __DIR__ );
         define( 'AWESOME_DOKAN_URL', plugins_url( '', AWESOME_DOKAN_FILE ) );
         define( 'AWESOME_DOKAN_ASSETS', AWESOME_DOKAN_URL . '/assets' );
-        define( 'AWESOME_DOKAN_PRO_URL', 'https://atplugins.com/plugins/awesome-dokan/' );
+        define( 'AWESOME_DOKAN_PRO_DEMO_URL', 'https://atplugins.com/plugins/awesome-dokan/' );
     }
 
     /**
