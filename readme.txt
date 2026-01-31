@@ -2,7 +2,7 @@
 Contributors: atplugins, raihan143
 Tags: dokan, dashboard, redesign, woocommerce, vendor dashboard
 Tested up to: 6.9
-Stable tag: 1.0.9
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,9 @@ Bring the awesome to your Dokan vendor dashboard and transform your marketplace 
 7. Settings panel.
 
 == Changelog ==
+
+= 1.1.0 =
+* Minor update.
 
 = 1.0.9 =
 * Released theme two
